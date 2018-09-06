@@ -1,0 +1,133 @@
+<div class="row" style="padding: 25px;">
+ <div class="col-md-5 modal-left childtable">
+  <table width="100%">
+	 <tbody>
+	 	   <tr>
+		   	   <th><input type="checkbox" class="checkAll" /></th>
+			   <th>表名称</th>
+			   <th>表注释</th>
+		   </tr>
+		   <tr th:each="tableList:${tableList}">
+			   <td><input type="checkbox" th:value="${tableList.jsonValue}"/></td>
+			   <td th:text="${tableList.tableName}"></td>
+			   <td th:text="${tableList.Comment}"></td>
+		   </tr>
+	   </tbody>
+	 </table>
+ </div>
+ <div class="col-md-2 modal-center">
+  <div class="seleadd ">
+		<ul class="seleaddul1 addperso" style="padding: 0px; text-align: center;">
+			<li class="seleaddli1"><i class="glyphicon glyphicon-fast-forward"></i></li>
+			<li>添加</li>
+		</ul>
+		<ul class="seleaddul2 delperso"  style="padding: 0px; text-align: center;">
+			<li class="seleaddli2"><i class="glyphicon glyphicon-fast-backward"></i></li>
+			 <li>移除</li>
+		</ul>
+	</div>
+ </div>
+ <div class="col-md-5 modal-right seleright_table">
+   <table style="width:100%;">
+	 <tbody>
+	  <tr>
+		  <th><input type="checkbox" class="checkAll" /></th>
+		  <th>表名称</th>
+		  <th>表注释</th>
+	  </tr>
+	   </tbody>
+	 </table>
+ </div>
+</div>
+<script type="text/javascript">
+/*<![CDATA[*/
+//全选、反选复选框，请设置class="checkAll"
+	$('.checkAll').click(function(){  
+           //alert(this.checked);  
+        if($(this).is(':checked')){  
+            $(this).parents('.seleright_table').find('input[type="checkbox"]').each(function(){  
+                    //此处如果用attr，会出现第三次失效的情况  
+                    $(this).prop("checked",true);  
+               });  
+        }else{  
+        	$(this).parents('.seleright_table').find('input[type="checkbox"]').each(function(){  
+               $(this).removeAttr("checked",false);  
+            });  
+                //$(this).removeAttr("checked");  
+        }  
+		if($(this).is(':checked')){  
+            $(this).parents('.childtable').find('input[type="checkbox"]').each(function(){  
+                    //此处如果用attr，会出现第三次失效的情况  
+                    $(this).prop("checked",true);  
+               });  
+        }else{  
+        	$(this).parents('.childtable').find('input[type="checkbox"]').each(function(){  
+               $(this).removeAttr("checked",false);  
+             });  
+                //$(this).removeAttr("checked");  
+        }  
+              
+    });  
+	$('.delperso').click(function(){   //移除人员
+		
+		$('.seleright_table tbody tr:gt(0)').find('input[type="checkbox"]').each(function(){
+			if($(this).is(':checked')){
+				$(this).parent().parent().remove();
+			}
+			
+		}); 
+		
+	})
+	
+	$('.addperso').click(function(){   //添加人员
+		
+		if($(".childtable tbody tr input:checked").length==0){
+			alert('请选中需要分析的表');
+			return;
+		}else{
+			
+			$('.seleright_table tbody tr:gt(0)').remove();
+			$('.childtable tbody tr:gt(0)').find('input[type="checkbox"]').each(function(){
+				if($(this).is(':checked')){
+					var cloneObject = $(this).parent().parent();
+					var arg = $('.seleright_table tbody tr').last();;
+			        cloneObject.clone().insertAfter(arg);
+				}
+				
+			}); 
+		}
+		
+	})
+	
+	$("#selectDataId").click(function(){ 
+		var dataArr=new Array();
+		radiao=new Array();
+		$('.seleright_table tbody tr:gt(0)').find('input[type="checkbox"]').each(function(){
+			if($(this).is(':checked')){
+				dataArr.push($(this).val());
+			}
+		}); 
+		insertSelectTable(dataArr);
+		$("#adddatatable").modal('hide');
+		
+		//触发前先清空
+		$('select[name=selectName]').empty();
+		$('select[name=selectName]').append('<option value=\"\">--请选择--</option>');
+		$("#sql-panel").html("");
+		$('.panel-body input:checkbox').on('click', function() {  
+			if(this.value != 'on'){
+				if ($(this).prop('checked')) {  
+					$('select[name=selectName]').append('<option value='+this.value+'>'+this.value+'</option>');
+			    } else {  
+			    	$('select[name=selectName] option[value=\"'+this.value+'\"]').remove();
+			    } 
+			}
+	    });
+	})
+	
+	function addSelectElement(paras){
+		
+	}
+	
+	/*]]>*/	
+</script>

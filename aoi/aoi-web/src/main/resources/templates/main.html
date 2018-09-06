@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8" />
+		<title>AOI</title>
+		<meta name="renderer" content="webkit|ie-comp|ie-stand" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+		<link rel="icon" type="image/x-icon" href="/assets/weeds.ico" />
+		<!-- <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" /> -->
+		<link rel="stylesheet" href="/assets/layui/css/layui.css" />
+		<link rel="stylesheet" href="/css/font.css" />
+		<link rel="stylesheet" href="/css/weadmin.css" />
+		<link rel="stylesheet" href="/css/global.css" />
+		<link rel="stylesheet" href="/css/code.css" />
+		<script type="text/javascript" src="/js/base-utils.js"></script>
+		<script type="text/javascript" src="/assets/libs/jquery-1.11.1.min.js"></script>
+		<script type="text/javascript" src="/assets/layui/layui.js" charset="utf-8"></script>
+		<script type="text/javascript" src="/js/clipboard.min.js" charset="utf-8"></script>
+	</head>
+
+	<body>
+	<!-- 顶部开始 -->
+	<div class="layui-header header header-doc" summer="">
+	  	<div class="layui-main">
+		    <a class="logo" href="#">
+		      <img src="./images/grasses_logo1.png" alt="layui" />
+		    </a>
+	    
+		    <ul class="layui-nav">
+			      <li class="layui-nav-item layui-this">
+			        <a href="#">文档</a> 
+			      </li>
+			      <li class="layui-nav-item ">
+			        <a href="#">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+			      </li> 
+			      <li class="layui-nav-item ">
+			        <a href="#">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+			      </li> 
+			      <li class="layui-nav-item layui-hide-xs">
+			        <a href="#" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+			      </li>
+		    	 <span class="layui-nav-bar" style="left: 129.219px; top: 55px; width: 0px; opacity: 0;"></span>
+		    </ul>
+	  	</div>
+	</div>
+		<!-- 顶部结束 -->
+	<!-- 中部开始 -->
+	<div class="layui-main site-inline">
+		<!-- 左侧菜单开始 -->
+		<div class="site-tree">
+		  <div class="layui-form" style="height: 38px; margin: 10px 13px 0 0;">
+		    <select lay-filter="tabVersion">
+		      <option value="new">1.X</option>
+		    </select><div class="layui-unselect layui-form-select"><div class="layui-select-title"><input type="text" placeholder="请选择" value="2.x" readonly="" class="layui-input layui-unselect" /><i class="layui-edge"></i></div><dl class="layui-anim layui-anim-upbit"><dd lay-value="new" class="layui-this">2.x</dd><dd lay-value="v1" class="">1.0.9</dd></dl></div>
+		  </div>
+ 		  <ul class="layui-tree">
+  
+				<li><h2>文档结构</h2></li>
+			  
+				<li class="site-tree-noicon layui-this">
+				  <a id="base_info" href="#">
+					<cite>基础说明</cite>
+				  </a>
+				</li>
+				<li class="site-tree-noicon ">
+				  <a id="money_extract" href="#">
+					<cite>金额提取</cite>
+					<em>money extrace</em>
+				  </a>
+				</li>
+				<li class="site-tree-noicon ">
+				  <a id="ip_extract" href="#">
+					<cite>IP解析</cite>
+					<em>acquire parsing</em>
+				  </a>
+				</li>
+				<li class="site-tree-noicon ">
+				  <a id="lnglat_transfer" href="#">
+					<cite>经纬度转换</cite>
+					<em>lnglat distance</em>
+				  </a>
+				</li>
+				<li class="site-tree-noicon ">
+				  <a id="askfor_api" href="#">
+					<cite>索要服务</cite>
+					<em>ask for api</em>
+				  </a>
+				</li>
+				<li class="site-tree-noicon ">
+			      <a id="update_info" href="#">
+			        <cite>更新日志</cite>
+			        <span class="layui-badge-dot" style="position: relative; top: -3px; left: -3px;"></span>
+			      </a>
+			    </li>
+			  </ul>
+		</div>
+		<!-- <div class="x-slide_left"></div> -->
+		<!-- 左侧菜单结束 -->
+		
+		<!-- 右侧主体开始 -->
+		<div class="site-content">
+			<h1 class="site-h1">系统说明与规范</h1>
+			<blockquote class="layui-elem-quote">weeds提供开发的aoi(Application of intelligent)智能管理系统，以免费开源实用为理念，
+						为广大开发者或需要的人提供有效工具。其中的规范和格式需要严格遵守，并拒绝用于商业用途！工具会不定期更新，有需要的朋友可以反馈.<p></p>
+			</blockquote>
+        </div>
+		
+		<!-- 右侧主体结束 -->
+		</div>
+		<!-- 中部结束 -->
+		<div class="layui-footer footer footer-doc" style="position: inherit;">
+		  <div class="layui-main">
+		    	<div style="width:300px;margin:0 auto; padding:20px 0;">
+		 			<a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=31011702004615" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img src="" style="float:left;"/><p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;"><img src="images/beian.png" />沪公网安备 31011702004615号</p></a>
+		 		</div>
+		  </div>
+		</div>
+		
+		<script type="text/javascript">
+			layui.config({
+			  base: '/js/'
+			  ,version: '1.0.0'
+			}).use('admin');
+			
+			$(function(){
+				$.ajax({
+					url: '/api/baseinfo',
+					data:{},
+					success: function(data){
+						$(".site-content").html(data);
+					}
+				});
+			})
+			//基础说明
+			$("#base_info").click(function(){
+				$.ajax({
+					url: '/api/baseinfo',
+					data:{},
+					success: function(data){
+						$(".site-content").html(data);
+					}
+				});
+			});
+			//金额提取
+			$("#money_extract").click(function(){
+				$.ajax({
+					url: '/api/moneymsg',
+					data:{},
+					success: function(data){
+						$(".site-content").html(data);
+					}
+				});
+			});
+			//IP解析
+			$("#ip_extract").click(function(){
+				$.ajax({
+					url: '/api/ipinfo',
+					data:{},
+					success: function(data){
+						$(".site-content").html(data);
+					}
+				});
+			});
+			//经纬度转换
+			$("#lnglat_transfer").click(function(){
+				$.ajax({
+					url: '/api/lnglat',
+					data:{},
+					success: function(data){
+						$(".site-content").html(data);
+					}
+				});
+			});
+			//索要服务
+			$("#askfor_api").click(function(){
+				$.ajax({
+					url: '/api/askfor',
+					data:{},
+					success: function(data){
+						$(".site-content").html(data);
+					}
+				});
+			});
+			//更新日志
+			$("#update_info").click(function(){
+				$.ajax({
+					url: '/api/updateinfo',
+					data:{},
+					success: function(data){
+						$(".site-content").html(data);
+					}
+				});
+			});
+			$('.site-tree-noicon').click(function(){
+				$(this).addClass('layui-this').siblings().removeClass('layui-this');
+			})
+		</script>
+	</body>
+	
+</html>

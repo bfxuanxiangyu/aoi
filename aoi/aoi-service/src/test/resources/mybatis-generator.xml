@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<!-- 右键项目运行 run as -> run configurations -> maven build mybatis-generator:generate -->
+<generatorConfiguration>
+
+
+	<context id="users-query" targetRuntime="MyBatis3Simple">
+		<property name="javaFileEncoding" value="UTF-8" />
+		<commentGenerator
+			type="org.mybatis.generator.internal.HairyCommentGenerator">
+			<property name="suppressAllComments" value="true" />
+		</commentGenerator>
+		<jdbcConnection connectionURL="${jdbc.url}"
+			driverClass="${jdbc.driverClassName}" password="${jdbc.password}"
+			userId="${jdbc.username}" />
+		<javaModelGenerator targetPackage="com.weeds.aoi.service.domain"
+			targetProject="src/main/java" />
+		<sqlMapGenerator targetPackage="com.weeds.aoi.service.mapper"
+			targetProject="src/main/java" />
+		<javaClientGenerator targetPackage="com.weeds.aoi.service.mapper"
+			targetProject="src/main/java" type="XMLMAPPER" />
+		
+		<table schema="srdb" tableName="t_access_token" enableDeleteByExample="false"
+			enableUpdateByExample="false">
+		</table>
+		
+	</context>
+	
+
+</generatorConfiguration>

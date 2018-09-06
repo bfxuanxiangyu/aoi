@@ -1,0 +1,75 @@
+<div class="content_body">
+	<h1 class="site-h1">索要服务</h1>
+	<div class="site-text site-block">
+      <form class="layui-form" action="/api/extract/money">
+      	<div class="layui-form-item">
+          <label class="layui-form-label">姓名</label>
+          <div class="layui-input-block">
+            <input type="text" name="name" required="" lay-verify="required" placeholder="请输入姓名" autocomplete="off" class="layui-input"/>
+          </div>
+        </div>
+      	<div class="layui-form-item">
+          <label class="layui-form-label">邮箱</label>
+          <div class="layui-input-block">
+            <input type="email" name="email" required="" lay-verify="required" placeholder="请输入邮箱" autocomplete="off" class="layui-input"/>
+          </div>
+        </div>
+      	<div class="layui-form-item">
+          <label class="layui-form-label">手机</label>
+          <div class="layui-input-block">
+            <input type="text" name="phone" required="" lay-verify="required" placeholder="请输入手机" autocomplete="off" class="layui-input" />
+          </div>
+        </div>
+      	<div class="layui-form-item">
+          <label class="layui-form-label">其他方式</label>
+          <div class="layui-input-block">
+            <input type="text" name="contact" required="" placeholder="微信/QQ/其他" autocomplete="off" class="layui-input" />
+          </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+          <label class="layui-form-label">服务描述</label>
+          <div class="layui-input-block">
+            <textarea name="content" placeholder="请输入索要发服务描述" lay-verify="required"  class="layui-textarea layui-form-danger"></textarea>
+          </div>
+        </div>
+        <div class="layui-form-item">
+          <div class="layui-input-block">
+            <button class="layui-btn" lay-submit="" lay-filter="formAskFor">索要</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div id="ask_result" class="site-text" style="padding-top: 15px;">
+	</div> 
+	
+</div>
+<script type="text/javascript">
+/*<![CDATA[*/
+	layui.use('form', function(){
+	  var form = layui.form;
+	  form.on('submit(formAskFor)', function(data){
+		  var content = data.field.content;
+		  var name = data.field.name;
+		  var contact = data.field.contact;
+		  var email = data.field.email;
+		  var phone = data.field.phone;
+		  $.ajax({
+				url: '/api/askfor_save',
+				data:{content:content,name:name,contact:contact,email:email,phone:phone},
+				success: function(result){
+					 result = JSON.parse(result);
+			         if(result.status==1){
+						 var obj =  result.data;
+						 $("#ask_result").html(html);
+			         }else{
+			        	 layer.msg(result.message, {icon: 5});
+			         }
+				}
+		  });
+         return false;
+       });
+	  
+	});
+	
+/*]]>*/	
+</script>

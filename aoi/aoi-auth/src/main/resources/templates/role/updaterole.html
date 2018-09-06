@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h6 class="page-header"></h6>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">角色管理</div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                           <form id="subForm" class="form-horizontal" role="form">
+         
+								<div class="form-group">
+											<label for="rolename"  class="col-sm-2 control-label">角色名</label>
+											<div class="col-sm-2">
+											<input name="roleName" th:value="${role.roleName} == null ? '' : ${role.roleName}" type="text" id="rolename" class="form-control"  placeholder="角色名"/>
+											</div>
+										<label for="roletitle" class="col-sm-2 control-label">roletitle</label>
+									<div class="col-sm-2">
+										<input th:value="${role.roleTitle} == null ? '' : ${role.roleTitle}" name="roleTitle" type="text" class="form-control" id="roletitle"
+											   placeholder="请输入roletitle"/>		   
+									</div>
+								</div>
+
+								<div class="form-group">
+									<div class="col-sm-offset-2 col-sm-10">
+										<button onclick="updateRole()" type="button" class="btn btn-default">提交</button>
+									</div>
+								</div>
+							</form>
+                            
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+        <!-- Page-Level Demo Scripts - Tables - Use for reference -->
+        
+        <script type="text/javascript">
+        
+        $('#dataTables-example').DataTable({
+            responsive: true, language: dataTablesLanguage
+        });
+        </script>
+        <script type="text/javascript">
+            function updateRole(){
+                var formData = $("#subForm").serializeArray();
+                var data = {};
+                formData.forEach(function (e) {
+                    data[e.name] = e.value;
+                });
+
+                $.ajax({
+                    type: 'post',
+                    url: '/admin/role/update',
+                    data: data,
+                    success: function(data) {
+                        $("#page-wrapper").load('/admin/role/list');
+                    }
+                });
+            }
+
+
+		</script>
+        </html>

@@ -1,0 +1,132 @@
+<div class="content_body">
+	<h1 class="site-h1">IP地址解析</h1>
+	<div class="site-text site-block">
+      <form class="layui-form" action="">
+        <div class="layui-form-item layui-form-text">
+          <label class="layui-form-label">IP</label>
+          <div class="layui-input-block">
+            <input name="content" placeholder="请输入内容" lay-verify="required"  class="layui-input layui-form-danger"></input>
+          </div>
+        </div>
+        <div class="layui-form-item">
+          <div class="layui-input-block">
+            <button class="layui-btn" lay-submit="" lay-filter="formParseIp">IP解析</button>
+            <button class="layui-btn" id="formGetlocalIp">获取本机IP</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div id="extract_result" class="site-text" style="padding-top: 15px;">
+	</div> 
+	
+	<div class="site-title">
+      <fieldset><legend><a name="extract_api">IP地址解析API</a></legend></fieldset>
+    </div>   
+    <div class="site-text">
+      <p>HTTP协议，支持POST/GET请求，UTF-8编码<em id="test_extract" style="color: blue; text-decoration: underline;">测试</em></p>
+      <table class="layui-table">
+        <thead>
+          <tr>
+            <th style="width: 100px;">名称</th>
+            <th style="width: 100px;">类型</th>
+            <th style="width: 100px;">是否必传</th>
+            <th>描述</th>
+          </tr> 
+        </thead>
+        <tbody>
+          <tr>
+            <td>key</td>
+            <td>varchar</td>
+            <td>是</td>
+            <td>无限期免费，暂时无用传</td>
+          </tr>
+          <tr>
+            <td>ip</td>
+            <td>varchar</td>
+            <td>是</td>
+            <td>需要解析的IP地址(需要Base64加密)</td>
+          </tr>
+          <tr>
+        </tr></tbody>
+      </table>
+      <p>返回示例</p>
+      <pre class="layui-code layui-box layui-code-view"><h3 class="layui-code-h3">JSON</h3><ol class="layui-code-ol"><li>{	</li><li>  "code": 0	</li><li>  "data":{	</li><li>    "ip": "180.173.59.180",</li><li>    "country": "中国",</li><li>    "area": ""</li><li>    "region": "中国",</li><li>    "city": "上海",</li><li>    "county": "XX",</li><li>    "isp": "电信",</li><li>    "country_id": "CN",</li><li>    "area_id": "",</li><li>    "region_id": "310000",</li><li>    "city_id": "310100",</li><li>    "county_id": "xx",</li><li>    "isp_id": "100017"</li><li>  }	</li><li>}	</li><li>      </li></ol></pre>
+    </div>
+</div>
+<script type="text/javascript">
+/*<![CDATA[*/
+	layui.use('form', function(){
+	  var form = layui.form;
+	  form.on('submit(formParseIp)', function(data){
+		  var content = data.field.content;
+		  $.ajax({
+				url: '/api/extract/parsingip',
+				data:{ip:Base64.encode(content)},
+				success: function(result){
+					debugger
+					 result = JSON.parse(result);
+			         if(result.code==0){
+						 var obj =  result.data;
+						 if(obj){
+							 var html = '<p class=\"site-tips\">';
+								 html += '<br/>{<em>&nbsp;"code"</em>:0,';
+								 html += '<br/><em>&nbsp;&nbsp;&nbsp;"data"</em>:{';
+								 html += '<br/><em>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"ip"</em>:"'+obj.ip+'",';
+								 html += '<br/><em>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"country"</em>:"'+obj.country+'",';
+								 html += '<br/><em>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"area"</em>:"'+obj.area+'",';
+								 html += '<br/><em>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"region"</em>:"'+obj.region+'",';
+								 html += '<br/><em>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"city"</em>:"'+obj.city+'",';
+								 html += '<br/><em>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"county"</em>:"'+obj.county+'",';
+								 html += '<br/><em>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"isp"</em>:"'+obj.isp+'",';
+								 html += '<br/><em>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"country_id"</em>:"'+obj.country_id+'",';
+								 html += '<br/><em>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"area_id"</em>:"'+obj.area_id+'",';
+								 html += '<br/><em>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"region_id"</em>:"'+obj.region_id+'",';
+								 html += '<br/><em>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"city_id"</em>:"'+obj.city_id+'",';
+								 html += '<br/><em>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"county_id"</em>:"'+obj.county_id+'",';
+								 html += '<br/><em>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"isp_id"</em>:"'+obj.isp_id+'"';
+							 	 html += '<br/>&nbsp;&nbsp;&nbsp;}';
+							 	 html += '<br/>}';
+							 	 html += '<br/></p>';
+						 }
+						 $("#extract_result").html(html);
+			         }else{
+			        	 layer.msg(result.message, {icon: 5});
+			         }
+				}
+		  });
+         return false;
+       });
+	  
+	  $("#formGetlocalIp").click(function(){
+		  $.ajax({
+				url: '/api/extract/unitip',
+				type:"POST",
+				data:{},
+				success: function(result){
+					 result = JSON.parse(result);
+			         if(result.status==1){
+						 var obj =  result.data;
+						 if(obj){
+							 var intranet_ip = obj.intranet_ip;
+							 var internet_ip = obj.internet_ip;
+							 var html = '<p class=\"site-tips\">';
+								 html += '<em>本机ip</em>：'+intranet_ip;
+								 html += '<br/><em>外网ip</em>：'+internet_ip;
+							 	 html += '<br/></p>';
+						 }
+						 $("#extract_result").html(html);
+			         }else{
+			        	 layer.msg(result.message, {icon: 5});
+			         }
+				}
+		  });
+         return false;
+       });
+	  
+	});
+	
+	$("#test_extract").click(function(){
+		layer.msg("域名还未审核通过,可先联系作者", {icon: 5});
+	});
+/*]]>*/	
+</script>

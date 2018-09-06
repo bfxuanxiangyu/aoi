@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.weeds.aoi.api.token.mapper.AccessTokenMapper">
+  <resultMap id="BaseResultMap" type="com.weeds.aoi.api.token.domain.AccessToken">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="access_token" jdbcType="VARCHAR" property="accessToken" />
+    <result column="expires_in" jdbcType="BIGINT" property="expiresIn" />
+    <result column="refresh_token" jdbcType="VARCHAR" property="refreshToken" />
+    <result column="created_time" jdbcType="BIGINT" property="createdTime" />
+    <result column="device_id" jdbcType="VARCHAR" property="deviceId" />
+    <result column="plat_code" jdbcType="VARCHAR" property="platCode" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_access_token
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.weeds.aoi.api.token.domain.AccessToken">
+    insert into t_access_token (id, access_token, expires_in, 
+      refresh_token, created_time, device_id, 
+      plat_code)
+    values (#{id,jdbcType=BIGINT}, #{accessToken,jdbcType=VARCHAR}, #{expiresIn,jdbcType=BIGINT}, 
+      #{refreshToken,jdbcType=VARCHAR}, #{createdTime,jdbcType=BIGINT}, #{deviceId,jdbcType=VARCHAR}, 
+      #{platCode,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.weeds.aoi.api.token.domain.AccessToken">
+    update t_access_token
+    set access_token = #{accessToken,jdbcType=VARCHAR},
+      expires_in = #{expiresIn,jdbcType=BIGINT},
+      refresh_token = #{refreshToken,jdbcType=VARCHAR},
+      created_time = #{createdTime,jdbcType=BIGINT},
+      device_id = #{deviceId,jdbcType=VARCHAR},
+      plat_code = #{platCode,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select id, access_token, expires_in, refresh_token, created_time, device_id, plat_code
+    from t_access_token
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAccessToken" parameterType="map" resultMap="BaseResultMap">
+    select id, access_token, expires_in, refresh_token, created_time, device_id, plat_code
+    from t_access_token
+    where 1 = 1 
+    <if test="deviceId != null">
+    	and device_id = #{deviceId}
+    </if>
+  </select>
+  <select id="selectAll" parameterType="map" resultMap="BaseResultMap">
+    select id, access_token, expires_in, refresh_token, created_time, device_id, plat_code
+    from t_access_token where 1=1 
+    <if test="accessToken != null">
+    	and access_token = #{accessToken}
+    </if>
+    <if test="deviceId != null">
+    	and device_id = #{deviceId}
+    </if>
+  </select>
+</mapper>

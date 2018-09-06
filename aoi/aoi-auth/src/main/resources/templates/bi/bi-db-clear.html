@@ -1,0 +1,39 @@
+<div class="row" style="padding: 25px;">
+ <div class="col-md-12 modal-center">
+  <table width="100%" class="clear-table">
+	 <tbody>
+	 	   <tr>
+		   	   <th><input type="checkbox" class="clear-check-all" /></th>
+			   <th>表名称</th>
+			   <th>表注释</th>
+		   </tr>
+		   <tr th:each="tableList:${tableList}">
+			   <td><input type="checkbox" th:value="${tableList.tableName}" class="clear-check"/></td>
+			   <td th:text="${tableList.tableName}"></td>
+			   <td th:text="${tableList.Comment}"></td>
+		   </tr>
+	   </tbody>
+	 </table>
+ </div>
+</div>
+
+<script type="text/javascript">
+/*<![CDATA[*/
+	
+	$('.clear-check-all').click(function(){  
+           //alert(this.checked);  
+        if($(this).is(':checked')){  
+            $(this).parents('.clear-table').find('input[type="checkbox"]').each(function(){  
+                    //此处如果用attr，会出现第三次失效的情况  
+                    $(this).prop("checked",true);  
+               });  
+        }else{  
+        	$(this).parents('.clear-table').find('input[type="checkbox"]').each(function(){  
+               $(this).removeAttr("checked",false);  
+            });  
+                //$(this).removeAttr("checked");  
+        }  
+    });
+
+	/*]]>*/	
+</script>

@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div class="row">
+	<div class="col-lg-12">
+		<h6 class="page-header"></h6>
+	</div>
+	<!-- /.col-lg-12 -->
+</div>
+<!-- /.row -->
+<div class="container">
+	<div class="row">
+		<!-- form: -->
+		<section>
+			<div class="col-lg-8 col-lg-offset-2">
+				<div class="page-header">
+					<h2>用户添加</h2>
+				</div>
+
+				<form id="defaultForm" class="form-horizontal"
+					data-bv-message="This value is not valid"
+					data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
+					data-bv-feedbackicons-invalid="glyphicon glyphicon-remove"
+					data-bv-feedbackicons-validating="glyphicon glyphicon-refresh"
+					method="post">
+					<div class="form-group">
+						<label class="col-lg-3 control-label">用户名</label>
+						<div class="col-lg-5">
+							<input type="text" class="form-control" name="user.userName"
+								data-bv-message="用户已存在" required="required"
+								data-bv-notempty-message="用户名不能为空" pattern="^[a-zA-Z0-9]+$"
+								data-bv-regexp-message="用户名只能由数字和字母组成" data-bv-remote="true"
+								data-bv-remote-url="/admin/user/checkUserName"
+								data-bv-stringlength="true" data-bv-stringlength-min="6"
+								data-bv-stringlength-max="30"
+								data-bv-stringlength-message="用户名必须为6-30位" />
+						</div>
+					</div>
+					
+					 <div class="form-group">
+                        <label class="col-lg-3 control-label">密码</label>
+                        <div class="col-lg-5">
+                            <input type="password" class="form-control" name="user.userPwd"
+                                   required="required" data-bv-notempty-message="密码不能为空"
+                                   data-bv-identical="true" data-bv-identical-field="confirmPassword" data-bv-identical-message="两次输入密码不一致"                                   
+                                 />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">确认密码</label>
+                        <div class="col-lg-5">
+                            <input type="password" class="form-control" name="confirmPassword"
+                                   required="required" data-bv-notempty-message="确认密码不能为空"
+                                   data-bv-identical="true" data-bv-identical-field="user.userPwd" data-bv-identical-message="两次输入密码不一致"/>
+                        </div>
+                    </div>
+
+					<div class="form-group">
+						<label class="col-lg-3 control-label">邮箱</label>
+						<div class="col-lg-5">
+							<input class="form-control" name="user.email" type="email"
+								data-bv-emailaddress-message="无效的邮箱地址" />
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-lg-3 control-label">手机号码</label>
+						<div class="col-lg-5">
+							<input type="text" class="form-control" name="user.phone" ></input>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-lg-3 control-label">姓名</label>
+						<div class="col-lg-5">
+							<input type="text" class="form-control" name="user.name" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-lg-3 control-label">警员编号</label>
+						<div class="col-lg-5">
+							<input type="text" class="form-control" name="user.policeCode" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-lg-3 control-label">身份证号</label>
+						<div class="col-lg-5">
+							<input type="text" class="form-control" name="user.idcard" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-lg-3 control-label">区域编号</label>
+						<div class="col-lg-5 input-group" style="padding-right: 15px;padding-left:15px;">
+							<input type="text" id="areaName" class="form-control" name="user.areaName" th:value="上海"  placeholder="请选择" aria-describedby="basic-addon2" readonly="readonly"/>
+							<input type="hidden" id="areaCode" name="user.areaCode" th:value="310100"/>
+							 <span class="input-group-addon" id="basic-addon2" onclick="areaCode()" data-toggle="modal" data-target="#selectArea" style="cursor: pointer;">+</span>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-lg-3 control-label">派出所编号</label>
+						<div class="input-group col-lg-5" style="padding-right: 15px;padding-left:15px;">
+							<input type="text" id="policeName" class="form-control" name="user.policeName"  placeholder="请选择" aria-describedby="basic-addon2" readonly="readonly"/>
+							<input type="hidden" id="police" class="form-control" name="user.police"/>
+							<span class="input-group-addon" id="basic-addon2" onclick="policeCode()" data-toggle="modal" data-target="#selectPolice" style="cursor: pointer;">+</span>
+						</div>
+					</div>
+						<div class="form-group">
+						<label class="col-lg-3 control-label">默认主页</label>
+						<div class="col-lg-5">
+							<input type="text" class="form-control" name="user.action" value="/main"/>
+						</div>
+					</div>
+					<div class="form-group">
+                        <label class="col-lg-3 control-label">状态</label>
+                        <div class="col-lg-5">
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" checked="checked" name="user.status" value="1" required="required" data-bv-notempty-message="The gender is required" /> 使用
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="user.status" value="0"/> 禁用
+                                </label>
+                            </div>                        
+                        </div>
+                    </div>
+
+					<div class="form-group">
+						<label class="col-lg-3 control-label">角色列表</label>
+						<div class="col-lg-5">
+							<div class="checkbox" th:each="role,iterStat:${roles}">
+								<label> <input th:if="${iterStat.index == 0}"
+									type="checkbox" name="roelIds" th:value="${role.roleId}"
+									th:text="${role.roleName}" data-bv-choice="true"
+									data-bv-choice-min="1" data-bv-choice-max="4"
+									data-bv-choice-message="请最少选择一个角色" /> <input
+									th:unless="${iterStat.index == 0}" type="checkbox"
+									name="roelIds" th:value="${role.roleId}"
+									th:text="${role.roleName}" />
+								</label>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-lg-9 col-lg-offset-3">
+							<button type="submit" class="btn btn-primary">提交</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</section>
+		<!-- :form -->
+	</div>
+</div>
+<div class="modal fade" id="selectArea" tabindex="-1" role="dialog"
+      aria-labelledby="editRoleMenuModalLabel" aria-hidden="true" data-backdrop="false">
+     <div class="modal-dialog">
+         <div class="modal-content">
+             <div class="modal-header">
+                 <h4 class="modal-title" id="editRoleMenuModalLabel">区域展示</h4>
+             </div>
+             <div class="modal-body">
+             	<ul id="areaZtree" class="ztree"></ul>
+             </div>
+             <div class="modal-footer">
+                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                 <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="areain();">确认</button>
+             </div>
+         </div><!-- /.modal-content -->
+     </div><!-- /.modal -->
+ </div>
+<div class="modal fade" id="selectPolice" tabindex="-1" role="dialog"
+      aria-labelledby="editRoleMenuModalLabel" aria-hidden="true" data-backdrop="false">
+     <div class="modal-dialog">
+         <div class="modal-content">
+             <div class="modal-header">
+                 <h4 class="modal-title" id="editRoleMenuModalLabel">请选择派出所</h4>
+             </div>
+             <div class="modal-body">
+             	<ul id="policeZtree" class="ztree" style="height:300px;overflow:auto; "></ul>
+             </div>
+             <div class="modal-footer">
+                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                 <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="pilcein();">确认</button>
+             </div>
+         </div><!-- /.modal-content -->
+     </div><!-- /.modal -->
+ </div>
+
+<script type="text/javascript">
+var areasetting = {
+		check: {
+			enable: true,
+			chkStyle: "radio",
+			radioType: "all"
+		},
+		data: {
+			simpleData: {
+				enable: true,
+				idKey: "id",
+				pIdKey: "pId",
+				rootPId: "310100"
+			}
+		}
+	};
+function areaCode(){
+	$.ajax({
+		 data: {
+	        	},
+		dataType:"json",
+		url:"/admin/area/gettree",
+		success: function(data){
+			
+			$.fn.zTree.init($('#areaZtree'), areasetting, data);
+		}
+	})		
+}
+function areain(){
+	var treeObj = $.fn.zTree.getZTreeObj("areaZtree");
+	var nodes = treeObj.getCheckedNodes();
+	$("#areaName").attr("value",nodes[0].name)
+	$("#areaCode").attr("value",nodes[0].code)
+	$("#police").attr("value","")
+	$("#policeName").attr("value","")
+}
+var policesetting = {
+		check: {
+			enable: true,
+			chkStyle: "radio",
+			radioType: "all"
+		},
+		data: {
+			simpleData: {
+				enable: true,
+				idKey: "id",
+				pIdKey: "pId",
+				
+			}
+		}
+	};
+function policeCode(){
+	$.ajax({
+		 data: {
+	        	"areaCode": $("#areaCode").val()
+	        	},
+		dataType:"json",
+		url:"/admin/police/gettree",
+		success: function(data){
+			$.fn.zTree.init($('#policeZtree'), policesetting, data);
+		}
+	})		
+}
+function pilcein(){
+	var treeObj = $.fn.zTree.getZTreeObj("policeZtree");
+	var nodes = treeObj.getCheckedNodes();
+	$("#policeName").attr("value",nodes[0].name)
+	$("#police").attr("value",nodes[0].code)
+}
+</script>
+                                
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#editModal").on("hide.bs.modal", function(){$(this).removeData("bs.modal");});
+	$("#editModal").on("shown.bs.modal", function(){	
+	});
+});
+
+
+$('#dataTables-roles').DataTable({
+    responsive: true, language: dataTablesLanguage
+});
+
+function delRole(roleId){
+	$('#delRoleModal').attr("roleId", roleId);
+}
+
+function roleDeleteManager() {            
+	$('#delRoleModal').modal('hide')
+    $.ajax({
+        url: "/admin/role/delete", 
+        data: {
+        	"roleId": $('#delRoleModal').attr("roleId")
+        	},
+        success: function (result) {
+        	$("#page-wrapper").html(result);
+        }
+    });
+}
+function menuManager(e, action){
+    $.ajax({url:action,success:function(result){
+        $("#page-wrapper").html(result);
+    }});
+}
+</script>
+<script type="text/javascript">
+	$(document).ready(
+			function() {
+				$('#defaultForm').bootstrapValidator().on('success.form.bv',
+						function(e) {
+							$('#defaultForm').ajaxSubmit({
+								type : 'post',
+								url : '/admin/user/save',
+								success : function(result) {
+									$("#page-wrapper").html(result);
+								},
+								error : function(result) {
+								}
+							});
+							return false;
+						});
+			});
+</script>
+</html>

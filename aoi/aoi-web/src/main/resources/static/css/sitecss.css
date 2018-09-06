@@ -1,0 +1,310 @@
+@charset "utf-8";
+@import "../../lib/layui/css/layui.css";
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,p,blockquote,th,td { margin:0; padding:0; }
+body { background:url(../images/main.jpg)no-repeat center top; color:#fff; font-size:14px; font-family: Verdana, Arial, Helvetica, sans-serif; }
+td,th,caption { font-size:14px; }
+h1, h2, h3, h4, h5, h6 { font-weight:normal; font-size:100%; }
+address, caption, cite, code, dfn, em, strong, th, var { font-style:normal; font-weight:normal;}
+a { color:#fff; text-decoration:none; }
+a:hover { text-decoration:none;color:#fff; }
+img { border:none; }
+ol,ul,li { list-style:none; }
+input, textarea, select, button { font:12px Verdana,Helvetica,Arial,sans-serif; }
+table { border-collapse:collapse; }
+
+
+.clearfix:after {content: "."; display: block; height:0; clear:both; visibility: hidden;}
+.clearfix { *zoom:1; }
+/**颜色样式**/
+.maroon{background: #be6760;}
+.mediumvioletred{background: #52a21d;}
+.indigo{background: #521395;}
+.saddlebrown{background: #0858bb;}
+.darkgoldenrod{background: #B8860B;}
+.gold{background: #FFD700}
+.darkkhaki{background: #BDB76B;}
+.darkslategray{background: #2F4F4F;}
+.darkolivegreen{background: #556B2F;}
+.olive{background: #808000;}
+.darkgreen{background: #006400;}
+.lightseagreen{background: #20B2AA;}
+.darkseagreen{background: #8FBC8F;}
+.honeydew{background: #F0FFF0;}
+.midnightblue{background: #191970;}
+.mediumblue{background: #AFEEEE;}
+.black{background: #000000;}
+.lightslategray{background: #778899;}
+.s666{color:#666;}
+/**高度-宽度样式**/
+.height-300{height:300px;position: relative;}
+.height-170{height:170px;position: relative;}
+.wid-90{width:90%;}
+.wid-280{width:280px !important;}
+.border-top{border-top-left-radius: 5px;border-top-right-radius: 5px;}
+.border-bottom{border-bottom-left-radius: 5px;border-bottom-right-radius: 5px;}
+/*整体网页布局  头部 内容 底部*/
+.header{
+   height:50px;
+    width:95%;
+    line-height:50px;
+    margin: 20px auto;
+}
+.container{
+   min-height:745px;
+    width:100%;
+}
+.footer{
+    width: 100%;
+    height: 50px;
+    background-color: rgba(0, 0, 0, 0.6);
+    line-height: 50px;
+    text-align: center;
+}
+/**头部具体样式**/
+.header>.logo>a>img{height:45px;width:45px;}
+.header>.logo>a>span{font-size: 16px;}
+.header_nav ul li{float: right;margin-left: 25px;}
+.header_nav ul li img{width:30px;cursor: pointer;}
+/**主页查询具体样式**/
+.main-seach{
+    width: 60%;
+    margin:auto;
+}
+.seach-input{
+    background: #8A92B6;
+    padding: 10px;
+    border: 1px solid #8A92B6;
+}
+.seach-input input{
+    height: 35px;
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+    border: 1px solid #fff;
+    padding: 0px 10px;
+    line-height: 35px;
+    width: 87%;
+}
+.seach-input button{
+    background: #1e339a;
+    color: #fff;
+    border: 1px solid #1e339a;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+    text-align: center;
+    font-size: 14px;
+    line-height: 36px;
+    height:36px;
+    width: 9%;
+    cursor: pointer;
+}
+.seach-content{margin-top: 20px;}
+.menu-link{height:600px;}
+.menu-link a{display: inline-block;text-align: center;width:100%;position: absolute;top:50%;height:120px;margin-top: -60px;}
+.menu-link a img{width:50%;}
+.seach-over{height:600px;background: url(../images/Mob_r8_c3.png) no-repeat #000000;background-size: cover;padding-top: 40px;padding-left: 55px;overflow-y: auto;}
+.seach-over .sucess,.seach-over .fail{position: relative;}
+.seach-over .sucess dt a{color:#00DD34;}
+.seach-over .fail dt a{color: #007FFF;}
+.seach-over .sucess dd,.seach-over .fail dd{color:#666;font-size: 12px;padding-left: 5px;padding-top: 5px;}
+.deleicon{
+    background: url(../images/Case_r6_c37.png)no-repeat;
+    color: #fff;
+    border-radius: 50%;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    right: 0px;
+    top: 0px;
+}
+/**数据分析主样式**/
+.warpper{width:95%;margin: auto;}
+.data-seach-input{
+    margin-bottom: 10px;
+    background: #8A92B6;
+    padding: 5px;
+    border-radius: 5px;
+}
+#dataseach input[type=search] {
+    background: #ededed url(../images/search-icon.png) no-repeat 9px center;
+    border: solid 1px #ccc;
+    padding: 5px 10px 5px 32px;
+    width:100%;
+    -webkit-border-radius: 10em;
+    -moz-border-radius: 10em;
+    border-radius: 10em;
+    -webkit-transition: all .5s;
+    -moz-transition: all .5s;
+    transition: all .5s;
+}
+#dataseach input[type=search] {
+    -webkit-appearance: textfield;
+    -webkit-box-sizing: content-box;
+    font-family: inherit;
+    font-size: 100%;
+    box-sizing: border-box;
+}
+.main-right{
+    border: 1px solid #FFFFFF;
+    background: rgba(0,0,0,0.6);
+    position: relative;
+    height: 730px;
+    box-sizing: border-box;
+    float: left;
+    border-radius: 5px;
+}
+.toggle-byn{
+    position: absolute;
+    top: 45%;
+    left: -24px;
+}
+.perpole-list{
+    border-right: 1px solid #FFFFFF;
+    height:728px;
+}
+.addperpole{
+    text-align: right;
+    border-bottom: 1px solid #fff;
+    padding: 4px;
+}
+.addperpole img{width:60px;cursor: pointer;}
+.border-green {
+    border: 5px solid green;
+    border-radius: 10px;
+    opacity: 1;
+}
+.select-perpole{height:688px;overflow-y: auto;}
+.List_img {
+    position: relative;
+    width: 95%;
+    text-align: center;
+    cursor: pointer;
+    background: #fff;
+    margin: 10px auto;
+    padding: 10px;
+    border-radius: 10px;
+    opacity: 0.7;
+    box-sizing: border-box;
+}
+.List_img img{width:100%;}
+.person-name{
+    color: #666;
+    font-size: 12px;
+    padding-top: 10px;
+}
+.List_img>.tipIcon {
+    background: url(../images/Case_r6_c37.png)no-repeat;
+    color: #fff;
+    border-radius: 50%;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    right: 0px;
+    top: 0px;
+}
+.menu-list{
+    margin: 20px auto;
+    box-shadow: 0px 0px 10px 5px #2848a8 inset, 0px 0px 10px 5px #2848a8;
+    border: 1px solid #FFFFFF;
+    height: 130px;
+    position: relative;
+    border-radius: 15px;
+    max-width: 350px;
+    -moz-transition: ease-in 0.2s;
+    -o-transition: ease-in 0.2s;
+    -webkit-transition: ease-in 0.2s;
+    transition: ease-in 0.2s;
+    display: block;
+    width: 70%;
+    padding: 40px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+.menu-list img{width:50px;    margin-right: 20px;}
+.menu-list:hover {
+    cursor: pointer;
+    border: 0px solid #FFFFFF;
+    font-size: 14px;
+    box-shadow: 0px 0px 1px 1px #FFFFFF inset, 0px 0px 5px 5px rgba(255,255,255, 0.6);
+    transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -o-transform: scale(1.1);
+    -webkit-transform: scale(1.1);
+}
+.layui-badge{position: absolute;top:0px;right:0px;}
+
+/**手机采集主样式**/
+.spig {
+    display: block;
+    width: 150px;
+    height: 190px;
+    position: absolute;
+    top: -200px;
+    left: 160px;
+    z-index: 9999;
+}
+
+#message {
+    color : #191919;
+    border: 1px solid #c4c4c4;
+    background: #ddd;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    min-height: 1em;
+    padding: 5px;
+    top: -30px;
+    position: absolute;
+    text-align: center;
+    width: auto !important;
+    z-index: 10000;
+    -moz-box-shadow: 0 0 15px #eeeeee;
+    -webkit-box-shadow: 0 0 15px #eeeeee;
+    border-color: #eeeeee;
+    box-shadow: 0 0 15px #eeeeee;
+    outline: none;
+}
+
+.mumu {
+    width: 150px;
+    height: 190px;
+    cursor: move;
+    background: url(../images/spig.png) no-repeat;
+}
+.breadcrumbs {
+    margin: auto;
+    border-bottom: 1px solid #fff;
+    padding: 10px;
+}
+.breadcrumbs>ul>li {
+    display: inline-block;
+}
+.breadcrumbs>ul>li>a {
+    padding: 15px 4px 0;
+    min-height: 50px;
+    color: #fff;
+}
+.breadcrumbs>ul>li>a>img {
+    width: 25px;
+    height: 25px;
+}
+.title-ck{
+    padding: 20px;
+    width: 95%;
+    margin-left: 10px;
+    margin-top: 30px;
+}
+.case-button,.sub-but{padding-left: 110px;}
+.case-from{margin-top: 20px!important;}
+$.ajax({
+timeout: 5000,
+type: "post",
+dataType:"json",
+data:{
+    caseId:colle.caseId,
+    collectId:colle.collectId,
+    addTime:false
+},
+url:"/job/collectJob",
+cache: false,

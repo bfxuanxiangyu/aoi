@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration>
+<configuration scan="true" scanPeriod="5 seconds">
+
+	<contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
+		<resetJUL>true</resetJUL>
+	</contextListener>
+
+	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>./logs/ffa.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+	      <fileNamePattern>./logs/ffa-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+	       <maxFileSize>512MB</maxFileSize>    
+	       <maxHistory>30</maxHistory>
+	       <totalSizeCap>1GB</totalSizeCap>
+	    </rollingPolicy>
+		<encoder>
+			<charset>UTF-8</charset>
+			<pattern>%d{MM-dd HH:mm:ss.SSS} %level [%thread] %logger{20}[%line] %m%n</pattern>
+		</encoder>
+	</appender>
+	
+	<logger name="com.sinnren.ffa">
+		<level value="INFO" />
+	</logger>
+
+	<logger name="net.nicoll.boot">
+		<level value="ERROR" />
+	</logger>
+	
+	<root level="WARN">
+		<appender-ref ref="FILE"/>
+	</root>
+
+</configuration>

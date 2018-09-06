@@ -1,0 +1,22 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css"/>
+</head>
+<body>
+
+
+<body>
+    <div class="text-center">
+        <h1 th:text="${errors.status}"></h1>
+        <h3 class="font-bold" th:text="${errors.message}">系统错误</h3>
+        <div class="error-desc">好像出错了...
+            <br/>您可以返回主页看看
+            <br/><a href="/" class="btn btn-primary m-t">主页</a>
+        </div>
+    </div>
+</body>
+
+</body>
+</html>

@@ -1,0 +1,199 @@
+<div class="content_body">
+	<h1 class="site-h1">经纬度转换</h1>
+	<div class="site-text site-block">
+        <div class="layui-form-item layui-form-text">
+          <label class="layui-form-label">经度或纬度</label>
+          <div class="layui-input-block">
+            <input type="number" id="lnglat" placeholder="请输入经度或纬度" class="layui-input layui-form-danger"></input>
+          </div>
+          <div class="layui-input-block">
+		  	<p class="layui-word-aux">eg:121.506337</p>
+		  </div>
+		  <div class="layui-inline">
+		    <label class="layui-form-label">度分秒</label>
+		    <div class="layui-input-inline" style="width: 100px;">
+	            <input type="number" id="degrees" placeholder="°" class="layui-input layui-form-danger"></input>
+		    </div>
+		    <div class="layui-form-mid">度</div>
+		    <div class="layui-input-inline" style="width: 100px;">
+	            <input type="number" id="minutes" placeholder="′" class="layui-input layui-form-danger"></input>
+		    </div>
+		    <div class="layui-form-mid">分</div>
+		    <div class="layui-input-inline" style="width: 100px;">
+	            <input type="number" id="seconds" placeholder="″" class="layui-input layui-form-danger"></input>
+		    </div>
+		    <div class="layui-form-mid">秒</div>
+		    <div class="layui-input-inline" style="width: 150px; padding-left: 10px;">
+	            <input type="text" id="minutevalue" placeholder="" class="layui-input layui-form-danger" readonly="readonly"></input>
+		    </div>
+		    <div class="layui-input-inline" style="width: 100px;margin-top:10px;">
+	            <a href="#" id='copy_button' data-clipboard-target="#minutevalue">复制</a>
+		    </div>
+          	<div class="layui-input-block" style="float: left;">
+		  		<p class="layui-word-aux">eg:121    39    38.780<em id="minute_test" style="text-decoration: underline;">测试</em></p>
+		  	</div>
+		  </div>
+		</div>
+        <div class="layui-form-item">
+          <div class="layui-input-block">
+            <button class="layui-btn" id="lnglatButton">经纬度转度分秒</button>
+            <button class="layui-btn" id="minuteButton">度分秒转经纬度</button>
+          </div>
+        </div>
+        <div class="site-title">
+	      <fieldset><legend><a name="select">两点间间距计算</a></legend></fieldset>
+	    </div>
+        <div class="layui-form-item layui-form-text">
+		  <div class="layui-inline">
+		    <label class="layui-form-label">起始点</label>
+		    <div class="layui-input-inline" style="width: 200px;">
+	            <input type="text" id="startLnglat" placeholder="起始经纬度" class="layui-input layui-form-danger"></input>
+		    </div>
+		    <div class="layui-form-mid">终点</div>
+		    <div class="layui-input-inline" style="width: 200px;">
+	            <input type="text" id="endLnglat" placeholder="终点经纬度" class="layui-input layui-form-danger"></input>
+		    </div>
+		    <div class="layui-input-inline" style="width: 100px; padding-left: 10px;">
+	            <input type="text" id="distanceValue" placeholder="" class="layui-input layui-form-danger" disabled="disabled"></input>
+		    </div>
+		    <div class="layui-input-inline" style="width: 100px;margin-top:10px;">
+	            	米
+		    </div>
+		  </div>
+		</div>
+         <div class="layui-input-block">
+  			<p class="layui-word-aux">eg:113.658575,34.79018   113.660434,34.788854<em id="distance_test" style="text-decoration: underline;">测试</em> </p>
+  	  	</div>
+        <div class="layui-form-item">
+          <div class="layui-input-block">
+            <button class="layui-btn" id="distanceButton">间隔计算</button>
+          </div>
+        </div>
+    </div>
+    <div id="extract_result" class="site-text" style="padding-top: 15px;">
+	</div> 
+	<fieldset class="layui-elem-field layui-field-title site-title">
+      <legend><a name="other">理论支撑</a></legend>
+    </fieldset>
+    <blockquote class="layui-elem-quote layui-quote-nm">
+      	1、地球半径：6371000M
+		<br/>2、地球周长：2 * 6371000M  * π = 40030173
+		<br/>3、纬度38°地球周长：40030173 * cos38 = 31544206M
+		<br/>4、任意地球经度周长：40030173M
+		<br/>
+		<br/>经度（东西方向）1M实际度：360°/31544206M=1.141255544679108e-5=0.00001141
+		<br/>纬度（南北方向）1M实际度：360°/40030173M=8.993216192195822e-6=0.00000899
+		<br/>经度（东西方向）100M实际度：0.00001141°* 100=0.001141°
+		<br/>纬度（南北方向）100M实际度：0.00000899°* 100=0.000899° 
+		<br/>
+		<br/>度数与米之间换算如下：
+		<p style="color: #FF5722">经度&nbsp;&nbsp;0.00001°≈1m；&nbsp;&nbsp;&nbsp;&nbsp;0.0001°≈10m；&nbsp;&nbsp;&nbsp;&nbsp;0.001°≈100m；</p>
+		<p style="color: #FF5722">纬度&nbsp;&nbsp;0.00001°≈1.1m；&nbsp;&nbsp;&nbsp;&nbsp;0.0001°≈11m；&nbsp;&nbsp;&nbsp;&nbsp;0.001°≈111m；</p>
+		即：地球的子午线总长度大约40008km，平均：
+		<p style="color: #FF5722">纬度1度 = 大约111km &nbsp;&nbsp;&nbsp;&nbsp;纬度1分 = 大约1.85km &nbsp;&nbsp;&nbsp;&nbsp;纬度1秒 = 大约30.9m </p>
+    </blockquote>
+    <blockquote class="layui-elem-quote layui-quote-nm">
+        	 <a href="http://api.map.baidu.com/lbsapi/getpoint/index.html" target="_blank" style="color: #01AAED;">经纬度或地址转换拾取</a>
+    </blockquote>
+	
+</div>
+<script type="text/javascript">
+/*<![CDATA[*/
+	$("#lnglatButton").click(function(){
+		  var lnglat = $("#lnglat").val();
+		  if(!lnglat){
+			  layer.msg('不接收空值转换', {icon: 5});
+			  return false;
+		  }
+		  $.ajax({
+				url: '/api/lnglat/transmute/lnglat',
+				type:"POST",
+				data:{lnglat:lnglat},
+				success: function(result){
+					 result = JSON.parse(result);
+			         if(result.status==1){
+			        	 var data = JSON.parse(result.data);
+			        	 $("#degrees").val(data.degrees);
+			        	 $("#minutes").val(data.minutes);
+			        	 $("#seconds").val(data.seconds);
+			        	 $("#minutevalue").val(data.degrees+"°"+data.minutes+"′"+data.seconds+"″");
+			         }else{
+			        	 layer.msg(result.message, {icon: 5});
+			         }
+				}
+		  });
+         return false;
+    });
+	$("#minuteButton").click(function(){
+		  var degrees = $("#degrees").val();
+		  var minutes = $("#minutes").val();
+		  var seconds = $("#seconds").val();
+		  if(!degrees || !minutes || !seconds){
+			  layer.msg('不接收空值转换', {icon: 5});
+			  return false;
+		  }
+		  var minute = degrees+","+minutes+","+seconds;
+		  $.ajax({
+				url: '/api/lnglat/transmute/minute',
+				type:"POST",
+				data:{minute:minute},
+				success: function(result){
+					 result = JSON.parse(result);
+			         if(result.status==1){
+			        	 $("#lnglat").val(result.data);
+			         }else{
+			        	 layer.msg(result.message, {icon: 5});
+			         }
+				}
+		  });
+         return false;
+    });
+	$("#distanceButton").click(function(){
+		  var startLnglat = $("#startLnglat").val();
+		  var endLnglat = $("#endLnglat").val();
+		  if(!startLnglat || !endLnglat){
+			  layer.msg('不接收空值计算', {icon: 5});
+			  return false;
+		  }
+		  var minute = degrees+","+minutes+","+seconds;
+		  $.ajax({
+				url: '/api/lnglat/calculate',
+				type:"POST",
+				data:{startLnglat:startLnglat,endLnglat:endLnglat},
+				success: function(result){
+					 result = JSON.parse(result);
+			         if(result.status==1){
+			        	 $("#distanceValue").val(result.data);
+			         }else{
+			        	 layer.msg(result.message, {icon: 5});
+			         }
+				}
+		  });
+         return false;
+    });
+	$("#distance_test").click(function(){
+		  $("#startLnglat").val('113.658575,34.79018');
+		  $("#endLnglat").val('113.660434,34.788854');
+		  $("#distanceButton").click();
+    });
+	$("#minute_test").click(function(){
+		 $("#degrees").val('121');
+	   	 $("#minutes").val('39');
+	   	 $("#seconds").val('38.780');
+		  $("#minuteButton").click();
+    });
+	var clipboard = new ClipboardJS('#copy_button');
+	clipboard.on('success', function(e) {
+		layer.msg('剪切板复制成功', {icon: 1});
+	    //e.clearSelection();
+	});
+	clipboard.on('error', function(e) {
+	    console.error('Action:', e.action);
+	    console.error('Trigger:', e.trigger);
+	});
+	  
+	$("#test_extract").click(function(){
+		layer.msg("域名还未审核通过,可先联系作者", {icon: 5});
+	});
+/*]]>*/	
+</script>

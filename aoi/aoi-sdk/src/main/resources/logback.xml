@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration>
+<configuration scan="true" scanPeriod="5 seconds">
+
+	<contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
+		<resetJUL>true</resetJUL>
+	</contextListener>
+
+	<logger name="org.springframework">
+		<level value="INFO" />
+	</logger>
+	
+	<logger name="net.sf.ehcache">
+		<level value="WARN" />
+	</logger>
+	
+	<logger name="org.apache.ibatis">
+		<level value="DEBUG" />
+	</logger>
+	
+	<logger name="com.weeds.aoi">
+		<level value="DEBUG" />
+	</logger>
+
+	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<charset>UTF-8</charset>
+			<pattern>%d{HH:mm:ss.SSS} [%-5level] [%thread] [%logger %line] %msg%n</pattern>
+		</encoder>
+	</appender>
+	<root level="WARN">
+		<appender-ref ref="CONSOLE" />
+	</root>
+	<!-- <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>./logs/aoi.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+	      <fileNamePattern>./logs/aoi-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+	       <maxFileSize>64MB</maxFileSize>    
+	       <maxHistory>7</maxHistory>
+	       <totalSizeCap>1GB</totalSizeCap>
+	    </rollingPolicy>
+		<encoder>
+			<charset>UTF-8</charset>
+			<pattern>%d{MM-dd HH:mm:ss.SSS} %level [%thread] %logger{20}[%line] %m%n</pattern>
+		</encoder>
+	</appender>
+	<root level="WARN">
+		<appender-ref ref="FILE" />
+	</root> -->
+</configuration>

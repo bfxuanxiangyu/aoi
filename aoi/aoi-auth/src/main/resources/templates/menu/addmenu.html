@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div class="modal-content">
+	<div class="modal-header">
+		<h4 class="modal-title" id="menuModalLabel">添加菜单</h4>
+	</div>
+	<div class="modal-body">
+		<form id="addMenuForm" class="form-horizontal"
+			data-bv-message="This value is not valid"
+			data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
+			data-bv-feedbackicons-invalid="glyphicon glyphicon-remove"
+			data-bv-feedbackicons-validating="glyphicon glyphicon-refresh"
+			th:object="${menu}">
+			<div class="form-group">
+				<label class="col-lg-3 control-label">标题</label>
+				<div class="col-lg-5">
+					<input type="text" class="form-control"  name="menuTitle" required="required"
+						data-bv-notempty-message="菜单名不能为空" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-lg-3 control-label">名称</label>
+				<div class="col-lg-5">
+					<input type="text" class="form-control" name="menuName"
+						data-bv-message="菜单已存在" required="required"
+						data-bv-notempty-message="菜单名不能为空" data-bv-remote="true"
+						data-bv-remote-url="/admin/menu/checkMenuName" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-lg-3 control-label">上级菜单</label>
+				<div class="col-lg-5">
+					<input class="form-control" name="parentName" th:value="*{parentName}"
+						type="text" required="required"
+						data-bv-notempty-message="上级菜单不能为空" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-lg-3 control-label">请求地址</label>
+				<div class="col-lg-5">
+					<input type="text" class="form-control" name="action" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-lg-3 control-label">图标</label>
+				<div class="col-lg-5">
+					<input type="text" class="form-control" name="icon" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-lg-3 control-label">排序</label>
+				<div class="col-lg-5">						
+					<input type="number" class="form-control" min="1" value="1" name="oderBy" style="padding-right:5px;"/>
+				</div>
+			</div> 
+		
+			<div class="form-group">
+				<label class="col-lg-3 control-label">菜单触发函数</label>
+				<div class="col-lg-5">
+					<input type="text" class="form-control" name="menuFunction" />
+				</div>
+			</div>			
+			<div class="form-group">
+				<label class="col-lg-3 control-label">菜单样式名</label>
+				<div class="col-lg-5">
+					<input type="text" class="form-control" name="menuStyleClass" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-lg-3 control-label">菜单样式</label>
+				<div class="col-lg-5">
+				<textarea class="form-control" name="menuStyle" rows="6"></textarea>
+				</div>
+			</div>
+				<div class="form-group">
+				<label class="col-lg-3 control-label">状态</label>
+				<div class="col-lg-5">
+					<div class="radio">
+						<label> <input type="radio" checked="checked"
+							name="status" value="1" required="required"
+							data-bv-notempty-message="状态必选" /> 使用
+						</label>
+					</div>
+					<div class="radio">
+						<label> <input type="radio" name="status" value="0" /> 禁用
+						</label>
+					</div>
+					<div shiro:hasRole="admin" class="radio">
+                   		<label>
+                           <input type="radio" name="status" value="2" /> 关闭
+                       </label>
+                   	</div>
+				</div>
+			</div>
+			
+			
+			<div class="form-group">
+				<div class="col-lg-9 col-lg-offset-3">
+					<button type="button" class="btn" data-dismiss="modal">取消</button>
+					<button type="submit" class="btn btn-primary">增加</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+<!-- /.modal-content -->
+<script type="text/javascript">
+
+
+	$(function(){
+		$("#addModal").on("hide.bs.modal", function(){$(this).removeData("bs.modal");});
+		$("#addModal").on("shown.bs.modal", function(){
+		$('#addMenuForm').bootstrapValidator().on('success.form.bv', function(e) {
+			$('#addMenuForm').ajaxSubmit({
+				type : 'post',
+				url : '/admin/menu/save',
+				success : function(result) {
+					$("#page-wrapper").html(result);
+				},
+				error : function(result) {
+				}
+			});
+			return false;
+		});
+	});
+	});
+</script>
+</html>

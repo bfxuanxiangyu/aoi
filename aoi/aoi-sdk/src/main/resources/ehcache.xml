@@ -1,0 +1,42 @@
+<ehcache updateCheck="false">
+
+	<defaultCache  
+       eternal="false"  
+       maxElementsInMemory="1000"  
+       overflowToDisk="false"  
+       diskPersistent="false"  
+       timeToIdleSeconds="0"  
+       timeToLiveSeconds="600"  
+       memoryStoreEvictionPolicy="LRU" />  
+   
+    <cache  
+       name="menu"    
+       eternal="false"  
+       maxElementsInMemory="10000"  
+       overflowToDisk="false"  
+       diskPersistent="false"  
+       timeToIdleSeconds="300"  
+       timeToLiveSeconds="300"  
+       memoryStoreEvictionPolicy="LRU" />
+       
+     <cache  
+       name="system"    
+       eternal="false"  
+       maxElementsInMemory="10000"  
+       overflowToDisk="false"  
+       diskPersistent="false"  
+       timeToIdleSeconds="3000"  
+       timeToLiveSeconds="3000"  
+       memoryStoreEvictionPolicy="LRU" />
+            
+     <cache  
+       name="querycache"    
+       eternal="false"  
+       maxElementsInMemory="10000"  
+       overflowToDisk="false"  
+       diskPersistent="false"  
+       timeToIdleSeconds="3000"  
+       timeToLiveSeconds="3000"  
+       memoryStoreEvictionPolicy="LRU" />
+       
+</ehcache>

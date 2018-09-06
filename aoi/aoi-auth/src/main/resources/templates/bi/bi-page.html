@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<div class="row">
+	<div class="col-lg-12">
+		<h6 class="page-header"></h6>
+	</div>
+</div>
+<div class="row">
+	<div class="panel panel-default">
+		<div class="panel-heading clearfix">
+			<ol class="breadcrumb" style="display: inline-block;margin-bottom: 0px;">
+			  <li><a href="#">数据表管理</a></li>
+			</ol>
+		    <div class="btn-group pull-right">
+		    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#adddatatable" onclick="getDb()">抽取数据</button>
+			<button type="button" class="btn btn-default" onclick="genSql()">生成sql</button>
+			<button type="button" class="btn btn-default" data-toggle="modal" data-target="#resultsTable" onclick="resultSet()">获取结果集</button>
+			<button type="button" class="btn btn-default" data-toggle="modal" data-target="#clearResultsTable" onclick="clearResultsTable()">结果集清理</button>
+		    </div>
+		</div>
+	
+		<div class="panel-body">
+		<div class="col-md-10 flow-left">
+		   <div class="panel panel-primary" style="border:none;">
+			  <div class="panel-heading">生成的表结构</div>
+		    <div class="panel-body" style="height:430px;overflow-y: auto;position: relative;">
+		        <div id="flow-panel" style="position:absolute;height:100%">
+						 
+                </div>
+					 
+		    </div>
+		   </div>
+			<div class="flow-footer">
+			  <div class="panel panel-primary" style="border:none;">
+			    <div class="panel-heading">生成的sql语句</div>
+				<div class="panel-body">
+					<div id="sql-panel"></div>
+				</div>
+			  </div>
+		    </div>
+			
+		</div>
+		<div class="col-md-2 flow-right">
+		  <div class="panel panel-primary datapan" style="border:none;margin-bottom: 5px;">
+		    <div class="panel-heading">函数<i class="glyphicon glyphicon-chevron-down"></i></div>
+			<div class="panel-body">
+			    <div class="sumDiv" style="margin-bottom: 10px;">
+					<input type="radio" id="sumSelect" name="functionSelect" value="sum"/>
+					<label for="sumSelect">sum</label>
+					<input type="radio" id="countSelect" name="functionSelect"  value="count"/>
+					<label for="countSelect"  style="padding-left: 30px;">count</label>
+					<select id="functionPara" class="form-control" name="selectName">
+					  <option value="">--请选择--</option>
+					</select>
+				</div>
+				<div class="groupbyDiv">                
+					<input type="radio" id="groupbySelect" name="groupbySelect"  value="group by"/>
+					<label for="groupbySelect">group by</label>
+					<select id="groupbyPara" class="form-control" name="selectName">
+					  <option value="">--请选择--</option>
+					</select>
+				</div>
+			</div>
+		  </div>
+		  <div class="panel panel-primary datapan" style="border:none;margin-bottom: 5px;">
+		    <div class="panel-heading">排序<i class="glyphicon glyphicon-chevron-down"></i></div>
+			<div class="panel-body" style="display:none;">
+			    <div class="orderDiv" style="margin-bottom: 20px;">
+					<input type="radio" id="fascOrder" name="functionOrder"  value="ASC"/>
+					<label for="fascOrder">统计正序</label>
+					<input type="radio" id="fdscOrder" name="functionOrder"  value="DESC"/>
+					<label for="fdscOrder" style="padding-left: 30px;" >统计倒叙</label>
+				</div>
+			    <div class="orderDiv" style="margin-bottom: 10px;">
+					<input type="radio" id="ascOrder" name="orderSelect"  value="ASC"/>
+					<label for="ascOrder">正序</label>
+					<input type="radio" id="dscOrder" name="orderSelect"  value="DESC"/>
+					<label for="dscOrder" style="padding-left: 30px;" >倒叙</label>
+					<select id="orderPara" class="form-control" name="selectName">
+					  <option value="">--请选择排序参数--</option>
+					</select>
+				</div>
+			</div>
+		  </div>
+		</div>
+			
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="adddatatable" tabindex="-1" role="dialog"
+	aria-labelledby="menuModalLabel" aria-hidden="true">
+	
+	<div class="modal-dialog modal-lg">
+			
+		<div class="modal-content">
+			<div class="modal-header" style="text-align: right;">
+			<h4 style="float:left;">抽取数据</h4>
+			<button type="button" class="btn" data-dismiss="modal">取消</button>
+			<button id="selectDataId" type="button" class="btn btn-primary">确定</button>
+			</div>
+		    <div class="modal-body ">
+		    	<div id="dbmodalbody"></div>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal -->
+</div>
+<!-- 结果集 -->
+<div class="modal fade" id="resultsTable" tabindex="-1" role="dialog"
+	aria-labelledby="resultsModalLabel" aria-hidden="true">
+	
+	<div class="modal-dialog modal-lg">
+			
+		<div class="modal-content">
+			<div class="modal-header" style="text-align: right;">
+				<h4 style="float:left;">数据结果集</h4>
+				<button type="button" class="btn" data-dismiss="modal">取消</button>
+				<button id="saveDataId" type="button" class="btn btn-primary">结果集持久化</button>
+				<button id="seniorId" type="button" class="btn"><span class="glyphicon glyphicon-sort"></span>高级</button>
+				<form id="seniorForm" class="form-inline" style="margin-top: 15px; display: none;">
+					 <div class="form-group">
+					    <label for="tableName">表名</label>
+					    <input type="text" class="form-control" id="tableName" placeholder="tableName" />
+					 </div>
+				</form>	 
+			</div>
+		    <div class="modal-body ">
+		    	<div id="resultsmodalbody"></div>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal -->
+</div>
+<!-- 清理临时结果集表 -->
+<div class="modal fade" id="clearResultsTable" tabindex="-1" role="dialog"
+	aria-labelledby="clearResultsModalLabel" aria-hidden="true">
+	
+	<div class="modal-dialog modal-lg">
+			
+		<div class="modal-content">
+			<div class="modal-header" style="text-align: right;">
+				<h4 style="float:left;">抽取临时结果集表清理</h4>
+				<button type="button" class="btn" data-dismiss="modal">取消</button>
+				<button id="clearDataId" type="button" class="btn btn-primary" onclick="clearData()">清理</button>
+			</div>
+		    <div class="modal-body ">
+		    	<div id="clearresultsmodalbody"></div>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal -->
+</div>
+<link href="/css/bi.css" rel="stylesheet"/>
+<!-- 拖动依赖js -->
+<script type="text/javascript" src="/assets/libs/jquery-ui-1.9.2.min.js"></script>
+<script type="text/javascript" src="/assets/libs/d3.min.js"></script>
+<script type="text/javascript" src="/assets/libs/json2.js"></script>
+<script type="text/javascript" src="/assets/libs/jquery.jsPlumb-1.7.2.js"></script>
+<script type="text/javascript" src="/assets/libs/biltong-0.2.js"></script>
+<script type="text/javascript" src="/assets/libs/jsBezier-0.6.js"></script>
+<script type="text/javascript" src="/js/main.js"></script>
+
+<script type="text/javascript">
+/*<![CDATA[*/
+	
+	//获取库表数据
+	function getDb(){
+		$.ajax({
+			url: '/bi/bi-data',
+			data:{tables:""},
+			success: function(data){
+				$("#dbmodalbody").html(data);
+			}
+		});
+	}
+	
+	
+	function genSql(){
+		alert(radiao);
+		var columArray = new Array();
+		var tableArray = new Array();
+		var tableName,tc;
+		$.each($('.panel-body input:checkbox'),function(){
+            if(this.checked){
+            	tc = $(this).val();
+            	if(tc != 'on'){
+	            	tableName = tc.substr(0,tc.indexOf("."));
+	            	if(!tableArray.contains(tableName)){
+	            		tableArray.push(tableName);
+	            	}
+	            	columArray.push(tc);
+            	}
+            }
+        });
+		
+		if(columArray.length <= 0 ){
+			alert("缺失条件");
+			return false;
+		}
+		
+		//函数条件组装
+		var functionName = $("input[name='functionSelect']:checked").val();  
+		var groupbyName = $("input[name='groupbySelect']:checked").val();  
+		var orderName = $("input[name='orderSelect']:checked").val();
+		var functionOrder = $("input[name='functionOrder']:checked").val();
+		var functionPara,orderPara,groupbyPara;
+		if(functionName){
+			functionPara = $("#functionPara").val();
+			if(!functionPara){
+				alert("请选中函数字段");
+				return false;
+			}
+		}
+		if(orderName){
+			orderPara = $("#orderPara").val();
+			if(!orderPara){
+				alert("请选中排序字段");
+				return false;
+			}
+		}
+		if(groupbyName){
+			groupbyPara = $("#groupbyPara").val();
+			if(!groupbyPara){
+				alert("请选中分组字段");
+				return false;
+			}
+		}
+		//进入后台组装
+		$.ajax({
+			url: '/bi/bi-gensql',
+			type : 'post',
+			traditional:true,
+			data:{tableArray:tableArray,columArray:columArray,functionName:functionName,orderName:orderName,
+				functionPara:functionPara,orderPara:orderPara,groupbyPara:groupbyPara,functionOrder:functionOrder},
+			success: function(data){
+				$("#sql-panel").html(data);
+			}
+		});
+	}
+	
+	function resultSet(){
+		var sql = $("#sql-panel").text();
+		if(!sql){
+			alert("无法获取结果集");
+			return false;
+		}
+		
+		if(sql.indexOf("SELECT") == -1){
+			alert("重新生成sql");
+			$("#sql-panel").html("");
+			return false;
+		}
+		
+		if(valiaSql(sql)){
+			alert("您无权限");
+			return false;
+		}
+		
+		//进入后台组装
+		$.ajax({
+			url: '/bi/bi-resultSet',
+			type : 'post',
+			traditional:true,
+			data:{sql:sql},
+			success: function(data){
+				$("#resultsmodalbody").html(data);
+				//$("#sql-panel").html(data);
+			}
+		});
+	}
+	
+	function valiaSql(sql){
+		
+		sql = sql.toUpperCase();
+		var reg = new RegExp(sql);
+		if(reg.test("INSERT") || reg.test("DELETE") || reg.test("UPDATE") || reg.test("TRUNCATE") || reg.test("DROP")){
+			return true;
+		} 
+		return false;
+	}
+	
+	
+	$("#saveDataId").click(function(){ 
+		var sql = $("#sql-panel").text();
+		if(!sql){
+			return false;
+		}
+		var tableName = $("#tableName").val();
+		$.ajax({
+			url: '/bi/bi-saveResultSet',
+			type : 'post',
+			traditional:true,
+			data:{sql:sql,tableName:tableName},
+			success: function(data){
+				alert(data);
+			}
+		});
+	})
+	$("#seniorId").click(function(){ 
+		if($("#seniorForm").is(":hidden")){
+			$("#seniorForm").show();
+		}else{
+			$("#seniorForm").hide();
+		}
+	})
+	
+	
+	//清理结果函数
+	function clearResultsTable(){
+		$.ajax({
+			url: '/bi/bi-clearresult',
+			type : 'post',
+			traditional:true,
+			data:{},
+			success: function(data){
+				$("#clearresultsmodalbody").html(data);
+			}
+		});
+	}
+	//清理
+	function clearData(){
+		var dataArr=new Array();
+		$('.clear-table input[type="checkbox"]').each(function(){
+			if($(this).is(':checked')){
+				dataArr.push($(this).val());
+			}
+		}); 
+		$("#clearResultsTable").modal('hide');
+		$.ajax({
+			url: '/bi/bi-cleartable',
+			type : 'post',
+			traditional:true,
+			data:{tables:dataArr},
+			success: function(data){
+				
+			}
+		});
+	}
+	
+	/*]]>*/	
+</script>
+
+</html> 

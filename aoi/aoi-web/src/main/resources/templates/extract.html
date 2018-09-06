@@ -1,0 +1,107 @@
+<div class="content_body">
+	<h1 class="site-h1">金额/余额/尾号提取</h1>
+	<div class="site-text site-block">
+      <form class="layui-form" action="/api/extract/money">
+        <div class="layui-form-item layui-form-text">
+          <label class="layui-form-label">文本</label>
+          <div class="layui-input-block">
+            <textarea name="content" placeholder="请输入内容" lay-verify="required"  class="layui-textarea layui-form-danger"></textarea>
+          </div>
+          <div class="layui-input-block">
+		  	<p class="layui-word-aux">eg:您尾号0247的储蓄卡账户1月13日16时58分消费支出人民币220.00元,活期余额684100.64元。[野草银行]</p>
+		  </div>	
+        </div>
+        <div class="layui-form-item">
+          <div class="layui-input-block">
+            <button class="layui-btn" lay-submit="" lay-filter="formExtractMoney">立即提交</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div id="extract_result" class="site-text" style="padding-top: 15px;">
+	</div> 
+	
+	<div class="site-title">
+      <fieldset><legend><a name="extract_api">提取API</a></legend></fieldset>
+    </div>   
+    <div class="site-text">
+      <p>HTTP协议，支持POST/GET请求，UTF-8编码<em id="test_extract" style="color: blue; text-decoration: underline;">测试</em></p>
+      <table class="layui-table">
+        <thead>
+          <tr>
+            <th style="width: 100px;">名称</th>
+            <th style="width: 100px;">类型</th>
+            <th style="width: 100px;">是否必传</th>
+            <th>描述</th>
+          </tr> 
+        </thead>
+        <tbody>
+          <tr>
+            <td>key</td>
+            <td>varchar</td>
+            <td>是</td>
+            <td>无限期免费，暂时无用传</td>
+          </tr>
+          <tr>
+            <td>content</td>
+            <td>varchar</td>
+            <td>是</td>
+            <td>需要解析的文本内容(需要Base64加密)</td>
+          </tr>
+          <tr>
+        </tr></tbody>
+      </table>
+      <p>返回示例</p>
+      <pre class="layui-code layui-box layui-code-view"><h3 class="layui-code-h3">JSON</h3><ol class="layui-code-ol"><li>{	</li><li>  "data":{	</li><li>    "balance": "684100.64",</li><li>    "expend": "220.00",</li><li>    "card": "0247"</li><li>  },	</li><li>  "message": "提取成功",	</li><li>  "status": 1	</li><li>}	</li><li>      </li></ol></pre>
+      <pre class="layui-code layui-box layui-code-view"><h3 class="layui-code-h3">JSON</h3><ol class="layui-code-ol"><li>{	</li><li>  "data":null,	</li><li>  "message": "提取异常",	</li><li>  "status": 0	</li><li>}	</li><li>      </li></ol></pre>
+    </div>
+</div>
+<script type="text/javascript">
+/*<![CDATA[*/
+	layui.use('form', function(){
+	  var form = layui.form;
+	  form.on('submit(formExtractMoney)', function(data){
+		  var content = data.field.content;
+		  $.ajax({
+				url: '/api/extract/money',
+				data:{content:Base64.encode(content)},
+				success: function(result){
+					 result = JSON.parse(result);
+			         if(result.status==1){
+						 var obj =  result.data;
+						 if(obj){
+							 var card = obj.card;
+							 var balance = obj.balance;
+							 var expend = obj.expend;
+							 var income = obj.income;
+							 var html = '<p class=\"site-tips\">';
+							 if(card){
+								 html += '<em>card</em>：'+card;
+							 }
+							 if(expend){
+								 html += '<br/><em>expend</em>：'+expend;
+							 }
+							 if(income){
+								 html += '<br/><em>income</em>：'+income;
+							 }
+							 if(balance){
+								 html += '<br/><em>balance</em>：'+balance;
+							 }
+							 html += '<br/></p>';
+						 }
+						 $("#extract_result").html(html);
+			         }else{
+			        	 layer.msg(result.message, {icon: 5});
+			         }
+				}
+		  });
+         return false;
+       });
+	  
+	});
+	
+	$("#test_extract").click(function(){
+		layer.msg("域名还未审核通过,可先联系作者", {icon: 5});
+	});
+/*]]>*/	
+</script>
