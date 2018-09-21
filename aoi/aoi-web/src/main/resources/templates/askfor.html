@@ -59,8 +59,8 @@
 				success: function(result){
 					 result = JSON.parse(result);
 			         if(result.status==1){
-						 var obj =  result.data;
-						 $("#ask_result").html(html);
+						 var obj =  result.message;
+						 layer.msg(obj, {icon: 1});
 			         }else{
 			        	 layer.msg(result.message, {icon: 5});
 			         }

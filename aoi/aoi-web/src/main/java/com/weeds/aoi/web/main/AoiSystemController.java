@@ -70,13 +70,16 @@ public class AoiSystemController {
 		if(AoiStringUtils.isBlank(askfor.getContent())){
 			return "illegal url";
 		}
+		String res = null;
 		try {
 			askfor.setCreateTime(new  Date());
 			systemVersionInfoService.saveAskForInfo(askfor);
+			res = AoiStringUtils.printJson("索要成功", "success");
 		} catch (Exception e) {
 			logger.error("索要服务异常"+e.getMessage(),e);
+			res = AoiStringUtils.failJson("索要异常", "error");
 		}
-		return "success";
+		return res;
 	}
 	
 	
