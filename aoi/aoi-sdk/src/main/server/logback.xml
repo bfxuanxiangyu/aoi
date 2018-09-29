@@ -7,7 +7,7 @@
 	</contextListener>
 
 	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>./logs/ffa.log</file>
+		<file>./logs/aoi.log</file>
 		<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
 	      <fileNamePattern>./logs/ffa-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
 	       <maxFileSize>512MB</maxFileSize>    
@@ -20,7 +20,7 @@
 		</encoder>
 	</appender>
 	
-	<logger name="com.sinnren.ffa">
+	<logger name="com.weeds.aoi">
 		<level value="INFO" />
 	</logger>
 

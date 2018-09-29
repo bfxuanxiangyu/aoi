@@ -15,7 +15,7 @@ SPRING_BOOT_APP=@dist.start.class@
 
 JAVA_EXEC="$( which java )"
 JAVA_CLASSPATH="$CONF_DIR:$LIB_DIR/*"
-JAVA_MAIN_CLASS="com.sinnren.ffa.Application"
+JAVA_MAIN_CLASS="com.weeds.aoi.Application"
 JAVA_ARGUMENTS=$SPRING_BOOT_APP
 
 

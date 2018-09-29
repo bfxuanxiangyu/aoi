@@ -12,7 +12,7 @@ FFA_JAVA_OPTS="$FFA_JAVA_OPTS -Dspring.profiles.active=$PROFILE"
 
 FFA_CLASSPATH="$CLASSPATH"
 
-FFA_PIDFILE="$FFA_HOME/bin/ffa.pid"
+FFA_PIDFILE="$FFA_HOME/bin/aoi.pid"
 
 FFA_CONSOLEOUT="$FFA_HOME/logs/console.out"
 
@@ -25,7 +25,7 @@ esac
 
 case $1 in
 start)
-    echo  -n "Starting ffa ... "
+    echo  -n "Starting aoi ... "
     if [ -f "$FFA_PIDFILE" ]; then
       if kill -0 `cat "$FFA_PIDFILE"` > /dev/null 2>&1; then
          echo $command already running as process `cat "$FFA_PIDFILE"`. 
@@ -33,7 +33,7 @@ start)
       fi
     fi
     nohup "$JAVA" $JAVA_OPTS $FFA_JAVA_OPTS -cp "$FFA_CLASSPATH" \
-        com.sinnren.ffa.Application >> "$FFA_CONSOLEOUT" 2>&1 < /dev/null &
+        com.weeds.aoi.Application >> "$FFA_CONSOLEOUT" 2>&1 < /dev/null &
     if [ $? -eq 0 ]
     then
       if /bin/echo -n $! > "$FFA_PIDFILE"
@@ -50,7 +50,7 @@ start)
     fi
     ;;
 stop)
-    echo -n "Stopping ffa"
+    echo -n "Stopping aoi"
     if [ ! -f "$FFA_PIDFILE" ]
     then
       echo "no ffa to stop (could not find file $FFA_PIDFILE)"
