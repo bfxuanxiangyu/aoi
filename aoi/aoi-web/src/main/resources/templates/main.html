@@ -84,6 +84,12 @@
 				  </a>
 				</li>
 				<li class="site-tree-noicon ">
+				  <a id="short_api" href="#">
+					<cite>短链接</cite>
+					<em>Short String</em>
+				  </a>
+				</li>
+				<li class="site-tree-noicon ">
 				  <a id="askfor_api" href="#">
 					<cite>索要服务</cite>
 					<em>ask for api</em>
@@ -168,6 +174,16 @@
 			$("#lnglat_transfer").click(function(){
 				$.ajax({
 					url: '/api/lnglat',
+					data:{},
+					success: function(data){
+						$(".site-content").html(data);
+					}
+				});
+			});
+			//短链接
+			$("#short_api").click(function(){
+				$.ajax({
+					url: '/api/short',
 					data:{},
 					success: function(data){
 						$(".site-content").html(data);

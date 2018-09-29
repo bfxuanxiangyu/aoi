@@ -1,14 +1,21 @@
 package com.weeds.aoi.web.main;
 
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.weeds.aoi.service.system.service.ShortStringService;
 
 @Controller
 @RequestMapping("/api")
 public class WebmainController {
 
 	//private Logger logger = LoggerFactory.getLogger(WebmainController.class);
+	
+	@Resource 
+	private ShortStringService shortStringService; 
 	
 	/*@RequestMapping("")
 	public ModelAndView webmain(){
@@ -52,7 +59,11 @@ public class WebmainController {
 		view.setViewName("askfor");
 		return view;
 	}
-	
-	
+	@RequestMapping("/short")
+	public ModelAndView shortMethod(){
+		ModelAndView view = new ModelAndView();
+		view.setViewName("short");
+		return view;
+	}
 	
 }

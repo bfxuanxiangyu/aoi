@@ -157,6 +157,7 @@ public class ShiroConfiguration {
 		chainDefinition.addPathDefinition("/favicon.ico", "anon");
 		
 		chainDefinition.addPathDefinition("/api/**", "anon");
+		chainDefinition.addPathDefinition("/dwz/**", "anon");
 		
 //		chainDefinition.addPathDefinition("/admin/login", "authc");
 //		chainDefinition.addPathDefinition("/admin/logout", "logout");

@@ -21,6 +21,11 @@ import org.slf4j.LoggerFactory;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.html.HtmlForm;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
+import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 import com.google.common.collect.Maps;
 
 public class NetUtils {
@@ -220,8 +225,46 @@ public class NetUtils {
     	return map;
     }
     
+	/**
+	 * 使用htmlunit获取外网ip
+	 */
+	public static String getWaiNetIp(){
+		String waiIp = null;
+		try {
+			WebClient client = new WebClient();
+			client.getOptions().setJavaScriptEnabled(false);//关闭css  js调用
+			client.getOptions().setCssEnabled(false);
+			// 做的第一件事，去拿到这个网页，只需要调用getPage这个方法即可  
+			HtmlPage htmlpage = client.getPage("http://www.baidu.com");  
+			 
+			// 根据名字得到一个表单，查看上面这个网页的源代码可以发现表单的名字叫“f”  
+			final HtmlForm form = htmlpage.getFormByName("f");  
+			// 同样道理，获取”百度一下“这个按钮  
+			final HtmlSubmitInput button = form.getInputByValue("百度一下");  
+			// 得到搜索框  
+			final HtmlTextInput textField = form.getInputByName("wd");  
+			//搜索我的id
+			textField.setValueAttribute("ip");  
+			// 输入好了，我们点一下这个按钮  
+			final HtmlPage nextPage = button.click();  
+			// 我把结果转成String  
+			String result = nextPage.asXml();  
+			
+			if(result.contains("本机IP")){
+				result = result.substring(result.indexOf("本机IP")+5);
+				result = result.substring(0,result.indexOf("</span>"));
+			}
+			waiIp=result; //得到的是点击后的网页
+			client.close();
+		} catch (Exception e) {
+			logger.error("外网ip获取异常"+e.getMessage(),e);
+		}
+		return waiIp;
+	}
+    
     public static void main(String[] args) {
     	System.out.println(getIpInfoParse("61.129.57.240"));
+    	System.out.println(getWaiNetIp());
 	}
 
 }

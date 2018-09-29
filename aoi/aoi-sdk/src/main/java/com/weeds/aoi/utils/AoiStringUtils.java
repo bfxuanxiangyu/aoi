@@ -9,6 +9,7 @@ import java.util.Random;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.zip.CRC32;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -185,11 +186,25 @@ public class AoiStringUtils {
         Transferable tText = new StringSelection(writeMe);  
         clip.setContents(tText, null);  
     }
+    
+    public static String getCrc32(String content){
+    	CRC32 crc32 = new CRC32();
+    	String crcStr = null;
+    	try {
+    		crc32.update(content.getBytes());
+    		crcStr = crc32.getValue()+"";
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+    	return crcStr;
+    }
 	
 	public static void main(String[] args) throws Exception{
 		System.out.println(getRandomNum(5));
 		System.out.println(getRandomStr(15));
 		
 		setSysClipboardText("123213");
+		
+		System.out.println(getCrc32("https://zhidao.baidu.com/question/1771524314312591140.html"));
 	}
 }

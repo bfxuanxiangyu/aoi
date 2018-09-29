@@ -1,0 +1,227 @@
+<div class="content_body">
+	<h1 class="site-h1">短语_长字符串转短字符串/支持短链接</h1>
+	<div class="site-text site-block">
+        <div class="layui-form-item layui-form-text">
+          <label class="layui-form-label">长网址</label>
+          <div class="layui-input-block">
+            <textarea id="urlStr" placeholder="请输入网址" lay-verify="required"  class="layui-textarea layui-form-danger"></textarea>
+          </div>
+          <label class="layui-form-label" style="margin-top: 15px;">短链接</label>
+          <div class="layui-input-block" style="margin-top: 15px;">
+            <input id="shortUrlStr" placeholder="请输入短链接" lay-verify="required"  class="layui-input layui-form-danger"></input>
+          </div>
+          <div class="layui-input-block">
+		  	<p class="layui-word-aux">说明：短链接访问时前缀必须是http://xxyweeds.top/dwz/</p>
+		  </div>	
+        </div>
+        <div class="layui-form-item">
+          <div class="layui-input-block">
+            <button class="layui-btn" id="formShortUrl">获取短链接</button>
+            <button class="layui-btn" id="to_short_url">访问短链接</button>
+          </div>
+        </div>
+        <div class="site-title">
+	      <fieldset><legend><a name="extract_api">长文本DEMO</a></legend></fieldset>
+	    </div>  
+        <div class="layui-form-item layui-form-text">
+          <label class="layui-form-label">长文本</label>
+          <div class="layui-input-block">
+            <textarea id="strString" placeholder="请输入文本" lay-verify="required"  class="layui-textarea layui-form-danger"></textarea>
+          </div>
+          <label class="layui-form-label" style="margin-top: 15px;">短文本</label>
+          <div class="layui-input-block" style="margin-top: 15px;">
+            <input id="shortStrString" placeholder="请输入压缩后短码" lay-verify="required"  class="layui-input layui-form-danger"></input>
+          </div>
+          <div class="layui-input-block">
+		  	<p class="layui-word-aux">说明：短文本压缩必须通过本平台接口进行解压缩</p>
+		  </div>	
+        </div>
+        <div class="layui-form-item">
+          <div class="layui-input-block">
+            <button class="layui-btn" id="formShortString">压缩长文本</button>
+            <button class="layui-btn" id="to_short_string">解压缩短文本</button>
+          </div>
+        </div>
+    </div>
+    <div id="extract_result" class="site-text" style="padding-top: 15px;">
+	</div> 
+	
+	<div class="site-title">
+      <fieldset><legend><a name="extract_api">长文本API</a></legend></fieldset>
+    </div>   
+    <div class="site-text">
+      <p>HTTP协议，支持POST，UTF-8编码<em id="test_shortString" style="color: blue; text-decoration: underline;">测试</em></p>
+      <table class="layui-table">
+        <thead>
+          <tr>
+            <th style="width: 100px;">名称</th>
+            <th style="width: 100px;">类型</th>
+            <th style="width: 100px;">是否必传</th>
+            <th>描述</th>
+          </tr> 
+        </thead>
+        <tbody>
+          <tr>
+            <td>appId</td>
+            <td>varchar</td>
+            <td>是</td>
+            <td>试用：000000000001</td>
+          </tr>
+          <tr>
+            <td>appSecret</td>
+            <td>varchar</td>
+            <td>是</td>
+            <td>试用：000000000001</td>
+          </tr>
+          <tr>
+            <td>url</td>
+            <td>varchar</td>
+            <td>是</td>
+            <td>url长地址</td>
+          </tr>
+          <tr>
+        </tr></tbody>
+      </table>
+      <p>返回示例</p>
+      <pre class="layui-code layui-box layui-code-view"><h3 class="layui-code-h3">JSON</h3><ol class="layui-code-ol"><li>{	</li><li>  "data":"http://xxyweeds.top/dwz/uMBrU3",	</li><li>  "message": "success",	</li><li>  "status": 1	</li><li>}	</li><li>      </li></ol></pre>
+      <pre class="layui-code layui-box layui-code-view"><h3 class="layui-code-h3">JSON</h3><ol class="layui-code-ol"><li>{	</li><li>  "data":null,	</li><li>  "message": "内部异常",	</li><li>  "status": 0	</li><li>}	</li><li>      </li></ol></pre>
+    </div>
+	<div class="site-title">
+      <fieldset><legend><a name="extract_api">长链接API</a></legend></fieldset>
+    </div>   
+    <div class="site-text">
+      <p>HTTP协议，支持POST，UTF-8编码<em id="test_shortUrl" style="color: blue; text-decoration: underline;">测试</em></p>
+      <table class="layui-table">
+        <thead>
+          <tr>
+            <th style="width: 100px;">名称</th>
+            <th style="width: 100px;">类型</th>
+            <th style="width: 100px;">是否必传</th>
+            <th>描述</th>
+          </tr> 
+        </thead>
+        <tbody>
+          <tr>
+            <td>appId</td>
+            <td>varchar</td>
+            <td>是</td>
+            <td>试用：000000000001</td>
+          </tr>
+          <tr>
+            <td>appSecret</td>
+            <td>varchar</td>
+            <td>是</td>
+            <td>试用：000000000001</td>
+          </tr>
+          <tr>
+            <td>content</td>
+            <td>varchar</td>
+            <td>是</td>
+            <td>content长文本内容，限长500字</td>
+          </tr>
+          <tr>
+        </tr></tbody>
+      </table>
+      <p>返回示例</p>
+      <pre class="layui-code layui-box layui-code-view"><h3 class="layui-code-h3">JSON</h3><ol class="layui-code-ol"><li>{	</li><li>  "data":"uMBrU3Wq",	</li><li>  "message": "success",	</li><li>  "status": 1	</li><li>}	</li><li>      </li></ol></pre>
+      <pre class="layui-code layui-box layui-code-view"><h3 class="layui-code-h3">JSON</h3><ol class="layui-code-ol"><li>{	</li><li>  "data":null,	</li><li>  "message": "内部异常",	</li><li>  "status": 0	</li><li>}	</li><li>      </li></ol></pre>
+    </div>
+</div>
+<script type="text/javascript">
+/*<![CDATA[*/
+	
+	
+	$("#formShortUrl").click(function(){
+		  var urlStr = $("#urlStr").val();
+		  if(!urlStr){
+			  layer.msg('不接收空转换', {icon: 5});
+			  return false;
+		  }
+		  var appId="000000000001",appSecret="000000000001",userId="000000001";
+		  $.ajax({
+				url: '/api/short/shortUrl',
+				type:"POST",
+				data:{url:urlStr,appId:appId,appSecret:appSecret,userId:userId},
+				success: function(result){
+					 result = JSON.parse(result);
+			         if(result.status==1){
+			        	 $("#shortUrlStr").val(result.data);
+			         }else{
+			        	 layer.msg(result.message, {icon: 5});
+			         }
+				}
+		  });
+         return false;
+    });
+	$("#to_short_url").click(function(){
+		  var shortUrlStr = $("#shortUrlStr").val();
+		  if(!shortUrlStr){
+			  layer.msg('不接收空跳转', {icon: 5});
+			  return false;
+		  }
+		  var appId="000000000001",appSecret="000000000001",userId="000000001";
+		  if(shortUrlStr.indexOf("http://xxyweeds.top/dwz/")<0){
+			  layer.msg('非法短链接', {icon: 5});
+			  return false;
+		  }
+		  window.open(shortUrlStr);
+		  return false;
+    });
+	$("#formShortString").click(function(){
+		  var strString = $("#strString").val();
+		  if(!strString){
+			  layer.msg('不接收空压缩', {icon: 5});
+			  return false;
+		  }
+		  if(strString.length>512){
+			  layer.msg('压缩内容不能超过512字节', {icon: 5});
+			  return false;
+		  }
+		  var appId="000000000001",appSecret="000000000001",userId="000000001";
+		  $.ajax({
+				url: '/api/short/shortString',
+				type:"POST",
+				data:{content:strString,appId:appId,appSecret:appSecret,userId:userId},
+				success: function(result){
+					 result = JSON.parse(result);
+			         if(result.status==1){
+			        	 $("#shortStrString").val(result.data);
+			         }else{
+			        	 layer.msg(result.message, {icon: 5});
+			         }
+				}
+		  });
+         return false;
+    });
+	$("#to_short_string").click(function(){
+		  var shortStrString = $("#shortStrString").val();
+		  if(!shortStrString){
+			  layer.msg('不接收空解压', {icon: 5});
+			  return false;
+		  }
+		  var appId="000000000001",appSecret="000000000001",userId="000000001";
+		  $.ajax({
+				url: '/api/short/decondeShortString',
+				type:"POST",
+				data:{shortString:shortStrString,appId:appId,appSecret:appSecret,userId:userId},
+				success: function(result){
+					 result = JSON.parse(result);
+			         if(result.status==1){
+			        	 $("#strString").val(result.data);
+			         }else{
+			        	 layer.msg(result.message, {icon: 5});
+			         }
+				}
+		  });
+		  return false;
+    });
+	
+	
+	$("#test_shortUrl").click(function(){
+		layer.msg("域名还未审核通过,可先联系作者", {icon: 5});
+	});
+	$("#test_shortString").click(function(){
+		layer.msg("域名还未审核通过,可先联系作者", {icon: 5});
+	});
+/*]]>*/	
+</script>

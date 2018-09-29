@@ -387,6 +387,16 @@
 			    <artifactId>poi-scratchpad</artifactId>
 			    <version>3.17</version>
 			</dependency>
+			<dependency>
+			    <groupId>org.docx4j</groupId>
+			    <artifactId>docx4j</artifactId>
+			    <version>6.0.1</version>
+			</dependency>
+			<dependency>
+			    <groupId>net.sourceforge.htmlunit</groupId>
+			    <artifactId>htmlunit</artifactId>
+			    <version>2.32</version>
+			</dependency>
 
 			<dependency>
 				<groupId>com.weeds.aoi</groupId>

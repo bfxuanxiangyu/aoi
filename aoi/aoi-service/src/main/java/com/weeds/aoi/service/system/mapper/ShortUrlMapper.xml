@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.weeds.aoi.service.system.mapper.ShortUrlMapper">
+  <resultMap id="BaseResultMap" type="com.weeds.aoi.service.system.domain.ShortUrl">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="create_time" jdbcType="BIGINT" property="createTime" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="short_url" jdbcType="VARCHAR" property="shortUrl" />
+    <result column="app_id" jdbcType="VARCHAR" property="appId" />
+    <result column="app_secret" jdbcType="VARCHAR" property="appSecret" />
+  </resultMap>
+  
+  <select id="getObject" parameterType="map" resultMap="BaseResultMap">
+    select id, create_time, user_id, url, short_url, app_id, app_secret
+    from short_url
+    where 1 = 1 
+    <if test="shortUrl != null">
+    	and short_url = #{shortUrl}
+    </if>
+    <if test="url != null">
+    	and CRC32(url) = #{url}
+    </if>
+    limit 1
+  </select>
+  <select id="selectAll" parameterType="map" resultMap="BaseResultMap">
+    select id, create_time, user_id, url, short_url, app_id, app_secret
+    from short_url
+    where 1 = 1 
+    <if test="id != null">
+    	and id = #{id}
+    </if>
+    <if test="url != null">
+    	and url = #{url}
+    </if>
+    <if test="shortUrl != null">
+    	and short_url = #{shortUrl}
+    </if>
+    <if test="userId != null">
+    	and user_id = #{userId}
+    </if>
+    <if test="appId != null">
+    	and app_id = #{appId}
+    </if>
+  </select>
+</mapper>
