@@ -169,12 +169,11 @@
 		    <groupId>org.docx4j</groupId>
 		    <artifactId>docx4j</artifactId>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/net.sourceforge.htmlunit/htmlunit -->
 		<dependency>
-		    <groupId>net.sourceforge.htmlunit</groupId>
+			<groupId>net.sourceforge.htmlunit</groupId>
 		    <artifactId>htmlunit</artifactId>
-		</dependency>
-				
+	    </dependency>
+		<!-- 人脸识别 -->		
 		
 	</dependencies>
   

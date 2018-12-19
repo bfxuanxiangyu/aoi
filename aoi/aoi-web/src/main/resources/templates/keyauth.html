@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8" />
+		<title>AOI</title>
+		<meta name="renderer" content="webkit|ie-comp|ie-stand" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+		<link rel="icon" type="image/x-icon" href="/assets/weeds.ico" />
+		<!-- <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" /> -->
+		<link rel="stylesheet" href="/assets/layui/css/layui.css" />
+		<link rel="stylesheet" href="/css/font.css" />
+		<link rel="stylesheet" href="/css/weadmin.css" />
+		<link rel="stylesheet" href="/css/global.css" />
+		<link rel="stylesheet" href="/css/code.css" />
+		<script type="text/javascript" src="/js/base-utils.js"></script>
+		<script type="text/javascript" src="/assets/libs/jquery-1.11.1.min.js"></script>
+		<script type="text/javascript" src="/assets/layui/layui.js" charset="utf-8"></script>
+		<script type="text/javascript" src="/js/clipboard.min.js" charset="utf-8"></script>
+	</head>
+
+<body>
+<div class="content_body">
+	<h1 class="site-h1">FFA系统功能授权</h1>
+	<div class="site-text site-block">
+      <form class="layui-form" action="/api/extract/money">
+      	<div class="layui-form-item">
+          <label class="layui-form-label">序列号</label>
+          <div class="layui-input-block">
+            <input type="text" name="uuid" required="" lay-verify="required" placeholder="请输入序列号" autocomplete="off" class="layui-input"/>
+          </div>
+        </div>
+        <div class="layui-form-item">
+		    <div class="layui-inline">
+		      <label class="layui-form-label">授权版本</label>
+		      <div class="layui-input-inline">
+		        <select name="version" lay-verify="required" lay-search="">
+		          <option value="1.0.21">1.0.21</option>
+		          <option value="1.0.23">1.0.23</option>
+		          <option value="1.0.25">1.0.25</option>
+		          <option value="1.0.27">1.0.27</option>
+		          <option value="1.0.29">1.0.29</option>
+		        </select>
+		      </div>
+		    </div>
+		  </div>
+      	<div class="layui-form-item">
+          <label class="layui-form-label">安装路径</label>
+          <div class="layui-input-block">
+            <input type="text" name="path" placeholder="请输入安装路径 eg：c:/FFA" autocomplete="off" class="layui-input"/>
+          </div>
+        </div>
+        <div class="layui-form-item">
+          <div class="layui-input-block">
+            <button class="layui-btn" lay-submit="" lay-filter="formAskFor">生成授权</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div id="ask_result" class="site-text" style="padding-top: 15px;">
+	</div> 
+	
+</div>
+<script type="text/javascript">
+/*<![CDATA[*/
+	layui.use('form', function(){
+	  var form = layui.form;
+	  form.on('submit(formAskFor)', function(data){
+		  var uuid = data.field.uuid;
+		  var version = data.field.version;
+		  var path = data.field.path;
+		  if(!uuid){
+			  layer.msg('序列号为空', {icon: 5});
+			  return;
+		  }
+		  $.ajax({
+				url: '/api/keyauth',
+				data:{uuid:uuid,version:version,path:path},
+				success: function(result){
+					 result = JSON.parse(result);
+					 debugger
+			         if(result.result==1){
+						 var obj =  result.message;
+						 var zipFileName = result.data;
+						 layer.msg(obj, {icon: 1});
+						 window.open("/api/keyauth_down?zipFileName="+encodeURI(zipFileName),'aoi',null,true);
+			         }else{
+			        	 layer.msg(result.message, {icon: 5});
+			         }
+				}
+		  });
+         return false;
+       });
+	  
+	});
+	
+/*]]>*/	
+</script>
+</body>
+	
+</html>

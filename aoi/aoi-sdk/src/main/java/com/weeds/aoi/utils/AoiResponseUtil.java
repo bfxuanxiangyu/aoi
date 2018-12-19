@@ -87,4 +87,46 @@ public class AoiResponseUtil {
 		}
 		return returnValue;
 	}
+	
+	/**
+	 * @param result
+	 * @param code
+	 * @param data
+	 * @return
+	 */
+	public static String printJson(String message,Object data){
+		Map<String, Object> printMap = Maps.newHashMap();
+		printMap.put("result", 1);
+		printMap.put("message", message);
+		printMap.put("data", data);
+		ObjectMapper mapper = new ObjectMapper();
+		String returnValue = "";
+		try {
+			returnValue = mapper.writeValueAsString(printMap);
+		} catch (JsonProcessingException e) {
+			logger.error("json转换失败"+e.getMessage(),e);
+		}
+		return returnValue;
+	}
+	/**
+	 * @param result
+	 * @param code
+	 * @param data
+	 * @return
+	 */
+	public static String printFailJson(int errorCode,String message,Object data){
+		Map<String, Object> printMap = Maps.newHashMap();
+		printMap.put("result", 0);
+		printMap.put("errorCode", errorCode);
+		printMap.put("message", message);
+		printMap.put("data", data);
+		ObjectMapper mapper = new ObjectMapper();
+		String returnValue = "";
+		try {
+			returnValue = mapper.writeValueAsString(printMap);
+		} catch (JsonProcessingException e) {
+			logger.error("json转换失败"+e.getMessage(),e);
+		}
+		return returnValue;
+	}
 }
