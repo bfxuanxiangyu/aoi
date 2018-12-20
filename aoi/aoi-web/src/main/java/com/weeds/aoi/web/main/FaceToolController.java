@@ -5,7 +5,10 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -33,6 +36,7 @@ import com.weeds.aoi.arcface.domain.ProcessInfo;
 import com.weeds.aoi.arcface.domain.UserFaceInfo;
 import com.weeds.aoi.arcface.service.FaceEngineService;
 import com.weeds.aoi.arcface.utils.ImageUtil;
+import com.weeds.aoi.utils.AoiDateUtils;
 import com.weeds.aoi.utils.AoiResponseUtil;
 import com.weeds.aoi.utils.AoiStringUtils;
 
@@ -74,6 +78,8 @@ public class FaceToolController {
 			if(AoiStringUtils.isBlank(groupId)){
 				groupId = AoiStringUtils.getUUID();
 			}
+			//先写入本地一份
+			writeLocal(file.getInputStream(), groupId);
 			
 			UserFaceInfo userFaceInfo = new UserFaceInfo();
 			userFaceInfo.setName(name);
@@ -99,6 +105,29 @@ public class FaceToolController {
 			return AoiResponseUtil.printFailJson(500, "服务器升级", null);
 		}
 	}
+	
+	private void writeLocal(InputStream is,String groupId){
+		try {
+			String porder = savePath + AoiDateUtils.dateToStr(new Date(), "yyyyMM")+File.separator;
+			File porderFile = new File(porder);
+			if(!porderFile.exists()){
+				porderFile.mkdirs();
+			}
+			String fileName = porder + groupId+"_"+AoiStringUtils.getRandomNum(5)+".jpg";
+			int index;
+			byte[] bytes = new byte[1024];
+			FileOutputStream out = new FileOutputStream(fileName);
+			while ((index = is.read(bytes)) != -1) {
+				out.write(bytes, 0, index);
+				out.flush();
+			}
+			out.close();
+			is.close();
+		} catch (Exception e) {
+			logger.error("写入本地异常"+e.getMessage(),e);
+		}
+	}
+	
 	@ResponseBody
 	@RequestMapping("/face/face_compare")
 	public String faceCompare(String groupId,@RequestParam(value="file", required=false) MultipartFile file){
@@ -167,6 +196,8 @@ public class FaceToolController {
     			return AoiResponseUtil.printFailJson(404, "缺少图片", null);
     		}
     		InputStream inputStream = file.getInputStream();
+    		//先写入本地一份
+			writeLocal(file.getInputStream(), AoiStringUtils.getUUID());
     		BufferedImage bufImage = ImageIO.read(inputStream);
     		ImageInfo imageInfo = ImageUtil.bufferedImage2ImageInfo(bufImage);
 //    		ImageInfo imageInfo = ImageUtil.getRGBData(inputStream);
