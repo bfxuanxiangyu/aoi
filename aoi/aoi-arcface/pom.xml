@@ -44,10 +44,6 @@
             <systemPath>${basedir}/lib/arcsoft-sdk-face-2.0.jar</systemPath>
         </dependency>
         
-        <dependency>
-	      <groupId>org.springframework.boot</groupId>
-	      <artifactId>spring-boot-starter-test</artifactId>
-	    </dependency>
         <!-- jpa -->
 		<dependency>
 	        <groupId>org.springframework.boot</groupId>
@@ -59,7 +55,23 @@
             <artifactId>hibernate-validator</artifactId>
         </dependency>
         
-    	
+        <dependency>
+			<groupId>xml-apis</groupId>
+			<artifactId>xml-apis</artifactId>
+			<version>1.4.01</version>
+		</dependency>
+        
+    	<dependency>
+	      <groupId>org.springframework.boot</groupId>
+	      <artifactId>spring-boot-starter-test</artifactId>
+	    </dependency>
+	    <dependency>
+			<groupId>org.mybatis.spring.boot</groupId>
+			<artifactId>mybatis-spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		
+		
   </dependencies>
   
   
