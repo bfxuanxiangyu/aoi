@@ -173,8 +173,7 @@
 			<groupId>net.sourceforge.htmlunit</groupId>
 		    <artifactId>htmlunit</artifactId>
 	    </dependency>
-		<!-- 人脸识别 -->		
-		
+	    
 	</dependencies>
   
   

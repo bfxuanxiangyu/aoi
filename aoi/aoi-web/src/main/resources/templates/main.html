@@ -90,6 +90,12 @@
 				  </a>
 				</li>
 				<li class="site-tree-noicon ">
+				  <a id="arcface_api" href="#">
+					<cite>人脸识别</cite>
+					<em>face compare/detect</em>
+				  </a>
+				</li>
+				<li class="site-tree-noicon ">
 				  <a id="askfor_api" href="#">
 					<cite>索要服务</cite>
 					<em>ask for api</em>
@@ -204,6 +210,16 @@
 			$("#update_info").click(function(){
 				$.ajax({
 					url: '/api/updateinfo',
+					data:{},
+					success: function(data){
+						$(".site-content").html(data);
+					}
+				});
+			});
+			//更新日志
+			$("#arcface_api").click(function(){
+				$.ajax({
+					url: '/api/arcface',
 					data:{},
 					success: function(data){
 						$(".site-content").html(data);

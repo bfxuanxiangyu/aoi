@@ -40,6 +40,9 @@
 					<plugin>
 						<groupId>org.springframework.boot</groupId>
 						<artifactId>spring-boot-maven-plugin</artifactId>
+						<configuration>
+					        <includeSystemScope>true</includeSystemScope>
+					    </configuration>
 						<executions>
 							<execution>
 								<goals>
@@ -114,6 +117,11 @@
     	<dependency>
 			<groupId>com.weeds.aoi</groupId>
 			<artifactId>aoi-web</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+    	<dependency>
+			<groupId>com.weeds.aoi</groupId>
+			<artifactId>aoi-arcface</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 

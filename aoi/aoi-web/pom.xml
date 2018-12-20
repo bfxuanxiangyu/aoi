@@ -37,6 +37,10 @@
 			<groupId>com.weeds.aoi</groupId>
 			<artifactId>aoi-service</artifactId>
 		</dependency>
+  		<dependency>
+			<groupId>com.weeds.aoi</groupId>
+			<artifactId>aoi-arcface</artifactId>
+		</dependency>
   
     	<!-- start -->
 		<dependency>

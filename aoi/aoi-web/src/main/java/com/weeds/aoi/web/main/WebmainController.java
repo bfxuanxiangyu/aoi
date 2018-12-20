@@ -65,5 +65,11 @@ public class WebmainController {
 		view.setViewName("short");
 		return view;
 	}
+	@RequestMapping("/arcface")
+	public ModelAndView arcface(){
+		ModelAndView view = new ModelAndView();
+		view.setViewName("arcface");
+		return view;
+	}
 	
 }

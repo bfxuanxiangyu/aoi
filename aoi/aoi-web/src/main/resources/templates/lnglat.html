@@ -63,13 +63,10 @@
 		</div>
          <div class="layui-input-block">
   			<p class="layui-word-aux">eg:113.658575,34.79018   113.660434,34.788854<em id="distance_test" style="text-decoration: underline;">测试</em> </p>
-  			<p class="layui-word-aux" ><span id="face_value" style="color: red"></span></p>
   	  	</div>
         <div class="layui-form-item">
           <div class="layui-input-block">
             <button class="layui-btn" id="distanceButton">间隔计算</button>
-            <button class="layui-btn" id="faceInfoId">获取人脸信息</button>
-            <button class="layui-btn" id="faceVersionId">获取版本信息</button>
           </div>
         </div>
     </div>
@@ -167,38 +164,6 @@
 					 result = JSON.parse(result);
 			         if(result.status==1){
 			        	 $("#distanceValue").val(result.data);
-			         }else{
-			        	 layer.msg(result.message, {icon: 5});
-			         }
-				}
-		  });
-         return false;
-    });
-	$("#faceInfoId").click(function(){
-		  $.ajax({
-				url: '/api/face/face_info',
-				type:"POST",
-				data:{},
-				success: function(result){
-					 result = JSON.parse(result);
-			         if(result.result==1){
-			        	 $("#face_value").text(result.data.age+"_"+result.data.gender);
-			         }else{
-			        	 layer.msg(result.message, {icon: 5});
-			         }
-				}
-		  });
-         return false;
-    });
-	$("#faceVersionId").click(function(){
-		  $.ajax({
-				url: '/api/face/face_version',
-				type:"POST",
-				data:{},
-				success: function(result){
-					 result = JSON.parse(result);
-			         if(result.result==1){
-			        	 $("#face_value").text(result.data.version+"_"+result.data.copyRight);
 			         }else{
 			        	 layer.msg(result.message, {icon: 5});
 			         }

@@ -1,0 +1,122 @@
+<div class="content_body">
+	<h1 class="site-h1">经纬度转换</h1>
+	<blockquote class="layui-elem-quote">人脸识别：图片识别     人脸比对.如果为人脸比对功能需要先注册对比照片组，只有一张也分为一组<p></p>
+	</blockquote>
+	
+	<div class="site-text site-block">
+        <div class="layui-form-item layui-form-text">
+	        <label class="layui-form-label">照片组编号</label>
+	        <div class="layui-input-block">
+	            <input type="text" id="groupId" placeholder="请输入组编号" class="layui-input layui-form-danger"></input>
+	        </div>
+	        <div class="layui-input-block">
+	  			<p class="layui-word-aux" >如果有多个需要比对的头像，全部注册到一个组下边。eg：有10张照片需要比对出跟那个人最相近，这10个人共用一个组编号即可（也可以不填）</p>
+	  	  	</div>
+	    </div>    
+        <div class="layui-form-item layui-form-text">
+	        <label class="layui-form-label">注册照片</label>
+	        <button type="button" class="layui-btn layui-btn-danger" id="facereg"><i class="layui-icon"></i>上传注册图片</button>
+	    </div>    
+        <div class="layui-form-item layui-form-text">
+	        <label class="layui-form-label">对比照片</label>
+	        <button type="button" class="layui-btn layui-btn-danger" id="facecompare"><i class="layui-icon"></i>上传对比图片</button>
+	    </div>    
+        <div class="layui-form-item layui-form-text">
+	        <label class="layui-form-label">人脸检测</label>
+	        <button type="button" class="layui-btn" id="facedetect"><i class="layui-icon"></i>上传人脸检测图片</button>
+	    </div>    
+        <div class="layui-input-block" id="compareId" style="text-align: center;">
+        	
+  	  	</div>
+        <div class="layui-form-item">
+        
+          <div class="layui-input-block">
+            <button class="layui-btn" id="faceregister">步骤一：人脸注册</button>
+            <button class="layui-btn" id="faceCompareId">步骤二：人脸比对</button>
+          </div>
+        </div>
+    </div>
+    
+	
+</div>
+<script type="text/javascript">
+/*<![CDATA[*/
+	layui.use('upload', function(){
+		var $ = layui.jquery
+		  ,upload = layui.upload;
+		
+		var groupId=null;
+		upload.render({
+		    elem: '#facereg'
+		    ,url: '/api/face/face_register'
+		    ,size: 10240 //限制文件大小，单位 KB  2M
+		    ,exts:'jpg|JPG'
+		    ,before: function(obj){
+		        this.data={'groupId':$("#groupId").val(),'name':'官方测试'};//关键代码
+		    } 
+		    ,done: function(res){
+		      	var result = res;
+		         if(result.result==1){
+		        	 $("#groupId").val(result.data);
+		         }else{
+		        	 layer.msg(result.message, {icon: 5});
+		         }
+		    }
+		  });
+		upload.render({
+		    elem: '#facecompare'
+		    ,url: '/api/face/face_compare'
+		    ,size: 10240 //限制文件大小，单位 KB  2M
+		    ,exts:'jpg|JPG'
+		    ,before: function(obj){
+		    	$("#compareId").empty();
+		        this.data={'groupId':$("#groupId").val()};//关键代码
+		    } 
+		    ,done: function(res){
+		      	var result = res;
+		         if(result.result==1){
+		        	 var html = '';
+	        		 html += '<img style=\"width:100%\" src=\"'+result.data.image+'\"/>';	 
+	        		 html += '<p class=\"layui-word-aux\" style=\"color: red!important;\">性别：'+result.data.gender+'</p>';	 
+	        		 html += '<p class=\"layui-word-aux\" style=\"color: red!important;\">年龄：'+result.data.age+'</p>';	 
+	        		 html += '<p class=\"layui-word-aux\" style=\"color: red!important;\">相似度：'+result.data.similarValue+'</p>';
+		        	$("#compareId").html(html);
+		         }else{
+		        	 layer.msg(result.message, {icon: 5});
+		         }
+		    }
+		  });
+		upload.render({
+		    elem: '#facedetect'
+		    ,url: '/api/face/face_detect'
+		    ,size: 10240 //限制文件大小，单位 KB  2M
+		    ,exts:'jpg|JPG'
+		    ,before: function(obj){
+		    	$("#compareId").empty();
+		    } 
+		    ,done: function(res){
+		      	var result = res;
+		         if(result.result==1){
+		        	 var html = '';
+	        		 html += '<img style=\"width:100%\" src=\"'+result.data.image+'\"/>';	 
+	        		 html += '<p class=\"layui-word-aux\" style=\"color: red!important;\">总人数：'+result.data.total+'</p>';	 
+		        	$("#compareId").html(html);
+		         }else{
+		        	 layer.msg(result.message, {icon: 5});
+		         }
+		    }
+		  });
+	});
+	
+	
+	$("#faceCompareId").click(function(){
+		 layer.msg('请上传对比图片', {icon: 5});
+         return false;
+    });
+	$("#faceregister").click(function(){
+		  layer.msg('请上传注册图片', {icon: 5});
+		  return false;
+    });
+	
+/*]]>*/	
+</script>

@@ -418,6 +418,11 @@
 				<artifactId>aoi-service</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
+			<dependency>
+				<groupId>com.weeds.aoi</groupId>
+				<artifactId>aoi-arcface</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+			</dependency>
 
 		</dependencies>
 	</dependencyManagement>
@@ -522,5 +527,6 @@
     	<module>aoi-service</module>
     	<module>aoi-api</module>
     	<module>aoi-web</module>
-  </modules>
+    	<module>aoi-arcface</module>
+	</modules>
 </project>

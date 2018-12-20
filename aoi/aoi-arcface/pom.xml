@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.weeds.aoi</groupId>
+    <artifactId>aoi-parent</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  
+  <artifactId>aoi-arcface</artifactId>
+  <name>aoi-arcface</name>
+  <url>http://maven.apache.org</url>
+  
+  <properties>
+  	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <thymeleaf-extras-shiro.version>1.2.1</thymeleaf-extras-shiro.version>
+  </properties>
+  
+  
+  <dependencies>
+  
+  		<dependency>
+			<groupId>com.weeds.aoi</groupId>
+			<artifactId>aoi-sdk</artifactId>
+		</dependency>
+		
+		<!-- 人脸识别 -->
+		<dependency>
+		    <groupId>cn.hutool</groupId>
+		    <artifactId>hutool-all</artifactId>
+		    <version>4.3.1</version>
+		</dependency>
+		<dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-pool2</artifactId>
+            <version>2.6.0</version>
+        </dependency>
+		<dependency>
+            <groupId>com.weeds.aoi.arcface</groupId>
+            <artifactId>arcsoft-sdk-face</artifactId>
+            <version>2.0</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/lib/arcsoft-sdk-face-2.0.jar</systemPath>
+        </dependency>
+        
+        <dependency>
+	      <groupId>org.springframework.boot</groupId>
+	      <artifactId>spring-boot-starter-test</artifactId>
+	    </dependency>
+        <!-- jpa -->
+		<dependency>
+	        <groupId>org.springframework.boot</groupId>
+	      	<artifactId>spring-boot-starter-data-jpa</artifactId>
+	    </dependency>
+	    <!-- hibernet -->
+		<dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+        </dependency>
+        
+    	
+  </dependencies>
+  
+  
+</project>
