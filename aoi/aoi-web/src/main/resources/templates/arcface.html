@@ -99,7 +99,20 @@
 		         if(result.result==1){
 		        	 var html = '';
 	        		 html += '<img style=\"width:100%\" src=\"'+result.data.image+'\"/>';	 
-	        		 html += '<p class=\"layui-word-aux\" style=\"color: red!important;\">总人数：'+result.data.total+'</p>';	 
+	        		 html += '<p class=\"layui-word-aux\" style=\"color: red!important;\">总人数：'+result.data.total+'</p>';	
+	        		 if(result.data.total > 0){
+	        			 html += '<p class=\"layui-word-aux\" style=\"color: red!important;\">性别：';
+		        		 $.each(result.data.infos,function(index,item){
+			        		 html += item.gender+',';	 
+			        		 //html += '<p class=\"layui-word-aux\" style=\"color: red!important;\">年龄：'+item.age+'</p>';
+	       				 });
+		        		 html += '</p>';	 
+	        			 html += '<p class=\"layui-word-aux\" style=\"color: red!important;\">年龄：';
+		        		 $.each(result.data.infos,function(index,item){
+			        		 html += item.age+',';	 
+	       				 });
+		        		 html += '</p>';	 
+	        		 }
 		        	$("#compareId").html(html);
 		         }else{
 		        	 layer.msg(result.message, {icon: 5});

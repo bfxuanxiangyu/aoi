@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.arcsoft.face.FaceInfo;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.weeds.aoi.arcface.domain.FaceSearchResDto;
 import com.weeds.aoi.arcface.domain.FaceUserInfo;
@@ -194,6 +195,18 @@ public class FaceToolController {
             	int height = faceInfoList.get(i).getRect().getBottom()- top;
             	graphics2D.drawRect(left, top, width, height);
     		}
+            List<ProcessInfo> processInfoList = faceEngineService.process(imageInfo);
+            if(processInfoList != null){
+            	List<Map<String, Object>> infos = Lists.newArrayList();
+            	for (ProcessInfo pi : processInfoList) {
+            		Map<String, Object> infoMap = Maps.newHashMap();
+					infoMap.put("age", pi.getAge());
+					infoMap.put("gender",pi.getGender().equals(1) ? "女" : "男");
+					infos.add(infoMap);
+				}
+            	resMap.put("infos", infos);
+            }
+            
             
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             ImageIO.write(bufImage, "jpg", outputStream);
