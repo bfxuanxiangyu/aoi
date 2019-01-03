@@ -45,7 +45,18 @@
 		        </select>
 		      </div>
 		    </div>
-		  </div>
+		</div>
+        <div class="layui-form-item">
+		    <div class="layui-inline">
+		      <label class="layui-form-label">授权功能</label>
+		      <div class="layui-input-block">
+	            <input type="checkbox" name="collectMult" title="多路采集" id="collectMult"/><div class="layui-unselect layui-form-checkbox"><span>写作</span><i class="layui-icon layui-icon-ok"></i></div>
+	          </div>
+		      <div class="layui-input-block">
+	            <input type="number" name="groupfileNum" id="groupfileNum" placeholder="群体侧写支持人数" autocomplete="off" class="layui-input"/>
+	          </div>
+		    </div>
+		</div>
       	<div class="layui-form-item">
           <label class="layui-form-label">安装路径</label>
           <div class="layui-input-block">
@@ -71,16 +82,28 @@
 		  var uuid = data.field.uuid;
 		  var version = data.field.version;
 		  var path = data.field.path;
+		  var collectMult = data.field.collectMult;
+		  var groupfileNum = data.field.groupfileNum;
+		  var orders = "";
+		  var functions= "functions=";
+		  debugger
 		  if(!uuid){
 			  layer.msg('序列号为空', {icon: 5});
 			  return;
 		  }
+		  if(!groupfileNum){
+			  groupfileNum=3;
+		  }
+		  orders+="groupfileNum="+groupfileNum+";";
+		  if(collectMult && collectMult=="on"){
+			  functions+="multiple_collect";
+		  }
+		  orders=orders+functions;
 		  $.ajax({
 				url: '/api/keyauth',
-				data:{uuid:uuid,version:version,path:path},
+				data:{uuid:uuid,version:version,path:path,orders:orders},
 				success: function(result){
 					 result = JSON.parse(result);
-					 debugger
 			         if(result.result==1){
 						 var obj =  result.message;
 						 var zipFileName = result.data;

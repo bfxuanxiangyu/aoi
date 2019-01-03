@@ -26,7 +26,7 @@ public class SmsBankPatternUtils {
     public static String expend_front [] = {"取出","应还","转出","还款","代收","消费","取款","交易","转至","提款"
     												,"网上支付","消费支出","收费","支出","付款","实扣","支取"
     												,"保费","转存","转账","集团","扣款","快捷金额","偿还","交费"};// 支出关键字   type_id=28
-    public static String income_front [] = {"收入","转入","收到","存入","存款","发起","入账"};//收入关键字   type_id=29
+    public static String income_front [] = {"收入","转入","收到","存入","存款","发起","入账","到账"};//收入关键字   type_id=29
     public static String expend_behind [] = {"(还款)","(跨行消费)"};//支出前推算法关键字      type_id=65
     public static String income_behind [] = {"(他行转入)","(转入资产)"};//收入前推算法关键字   type_id=64
     public static String card [] = {"尾号","尾号为","账号","户","卡"};//卡号提取关键   type_id=30

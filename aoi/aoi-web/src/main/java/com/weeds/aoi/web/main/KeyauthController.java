@@ -41,7 +41,7 @@ public class KeyauthController {
 	
 	@ResponseBody
 	@RequestMapping("/keyauth")
-	public String extractMoney(String uuid,String version,String path,HttpServletResponse response){
+	public String extractMoney(String uuid,String version,String path,String orders,HttpServletResponse response){
 		String res = null;
 		try {
 			if(AoiStringUtils.isBlank(uuid)||AoiStringUtils.isBlank(version)){
@@ -49,7 +49,7 @@ public class KeyauthController {
 				return res;
 			}
 			//auth授权
-			boolean writeData = writeData(keyauthPath+"auth", uuid, version);
+			boolean writeData = writeData(keyauthPath+"auth", uuid, version,orders);
 			if(!writeData){
 				res = AoiResponseUtil.printFailJson(500, "error Contact the xxy", null);
 				return res;
@@ -130,13 +130,30 @@ public class KeyauthController {
 
 	}
 	
-	private boolean writeData(String porder, String keyCode,String version){
+	private boolean writeData(String porder, String keyCode,String version,String orders){
 		boolean flag = false;
 		try {
 			File file = new File(porder);
 			if(file.exists()){
 				file.delete();
 			}
+			String groupfile_num = "3";//群体侧写默认值
+			String functions = "";//功能multiple_collect
+			if(AoiStringUtils.isNotBlank(orders)){
+				String[] farray = orders.split(";");
+				for (int i = 0; i < farray.length; i++) {
+					String fun = farray[i];
+					String[] funcs = fun.split("=");
+					if(funcs.length==2){
+						if(funcs[0].equals("groupfileNum")){
+							groupfile_num=funcs[1];
+						}else if(funcs[0].equals("functions")){
+							functions=funcs[1];
+						}
+					}
+				}
+			}
+			
 			Map<String, Object> map = Maps.newHashMap();
 			Map<String, Object> cmap_baseInfo = Maps.newHashMap();
 			Map<String, Object> cmap_function = Maps.newHashMap();
@@ -145,9 +162,8 @@ public class KeyauthController {
 			cmap_baseInfo.put("key_code", keyCode);//狗码
 			cmap_baseInfo.put("version", version);//狗码
 			map.put("base_info", cmap_baseInfo);
-			String functions = "multiple_collect";
 			cmap_function.put("functions", functions);
-			cmap_function.put("person_limit", "10");
+			cmap_function.put("groupfile_num", groupfile_num);
 			map.put("function", cmap_function);
 			String mS = AoiStringUtils.getJsonObj(map);
 			String mSs=Des3Utils.ecryptData(mS);
