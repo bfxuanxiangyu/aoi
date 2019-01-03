@@ -156,6 +156,72 @@ public class FaceToolController {
 			
 			FaceSearchResDto faceSearchResDto = new FaceSearchResDto();
 			if (CollectionUtil.isNotEmpty(userFaceInfoList)) {
+				FaceUserInfo faceUserInfo = userFaceInfoList.get(0);
+				BeanUtil.copyProperties(faceUserInfo, faceSearchResDto);
+				List<ProcessInfo> processInfoList = faceEngineService.process(imageInfo);
+				if (CollectionUtil.isNotEmpty(processInfoList)) {
+					//人脸检测
+					List<FaceInfo> faceInfoList = faceEngineService.detectFaces(imageInfo);
+					int left = faceInfoList.get(0).getRect().getLeft();
+					int top = faceInfoList.get(0).getRect().getTop();
+					int width = faceInfoList.get(0).getRect().getRight() - left;
+					int height = faceInfoList.get(0).getRect().getBottom()- top;
+					
+					Graphics2D graphics2D = bufImage.createGraphics();
+					graphics2D.setColor(Color.RED);//红色
+					BasicStroke stroke = new BasicStroke(5f);
+					graphics2D.setStroke(stroke);
+					graphics2D.drawRect(left, top, width, height);
+					ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+					ImageIO.write(bufImage, "jpg", outputStream);
+					byte[] bytes1 = outputStream.toByteArray();
+					faceSearchResDto.setImage("data:image/jpeg;base64," + Base64Utils.encodeToString(bytes1));
+					faceSearchResDto.setAge(processInfoList.get(0).getAge());
+					faceSearchResDto.setGender(processInfoList.get(0).getGender().equals(1) ? "女" : "男");
+				}
+				return AoiResponseUtil.printJson("人脸对比成功", faceSearchResDto);
+			}
+			return AoiResponseUtil.printFailJson(505, "无匹配图片", null);
+		} catch (Exception e) {
+			logger.error("人脸比对异常"+e.getMessage(),e);
+			return AoiResponseUtil.printFailJson(500, "服务器升级", null);
+		}
+	}
+	
+	/**
+	 * 人脸比对 对外接口
+	 * @param groupId
+	 * @param file
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/face/aoi_face_compare")
+	public String faceCompareAoi(String groupId,@RequestParam(value="file", required=false) MultipartFile file){
+		try {
+			if(AoiStringUtils.isBlank(groupId)){
+				return AoiResponseUtil.printFailJson(404, "缺少照片组编号", null);
+			}
+			if(file==null || file.getInputStream()==null){
+				return AoiResponseUtil.printFailJson(404, "缺少图片", null);
+			}
+			InputStream inputStream = file.getInputStream();
+			BufferedImage bufImage = ImageIO.read(inputStream);
+			ImageInfo imageInfo = ImageUtil.bufferedImage2ImageInfo(bufImage);
+			if (inputStream != null) {
+				inputStream.close();
+			}
+			//人脸特征获取
+			byte[] bytes = faceEngineService.extractFaceFeature(imageInfo);
+			
+			if (bytes == null) {
+				logger.info("no result");
+				return AoiResponseUtil.printFailJson(404, "无人脸信息比对", null);
+			}
+			//人脸比对，获取比对结果
+			List<FaceUserInfo> userFaceInfoList = faceEngineService.compareFaceFeature(bytes, groupId);
+			
+			FaceSearchResDto faceSearchResDto = new FaceSearchResDto();
+			if (CollectionUtil.isNotEmpty(userFaceInfoList)) {
 	            FaceUserInfo faceUserInfo = userFaceInfoList.get(0);
 	            BeanUtil.copyProperties(faceUserInfo, faceSearchResDto);
 	            List<ProcessInfo> processInfoList = faceEngineService.process(imageInfo);
@@ -174,8 +240,8 @@ public class FaceToolController {
 	                graphics2D.drawRect(left, top, width, height);
 	                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 	                ImageIO.write(bufImage, "jpg", outputStream);
-	                byte[] bytes1 = outputStream.toByteArray();
-	                faceSearchResDto.setImage("data:image/jpeg;base64," + Base64Utils.encodeToString(bytes1));
+//	                byte[] bytes1 = outputStream.toByteArray();
+//	                faceSearchResDto.setImage("data:image/jpeg;base64," + Base64Utils.encodeToString(bytes1));
 	                faceSearchResDto.setAge(processInfoList.get(0).getAge());
 	                faceSearchResDto.setGender(processInfoList.get(0).getGender().equals(1) ? "女" : "男");
 	            }

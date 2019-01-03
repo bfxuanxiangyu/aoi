@@ -37,6 +37,93 @@
         </div>
     </div>
     
+    <div class="site-title">
+      <fieldset><legend><a name="extract_api">人脸注册API</a></legend></fieldset>
+    </div>   
+    <div class="site-text">
+      <p>HTTP协议，支持POST请求，UTF-8编码<em id="test_face_reg" style="color: blue; text-decoration: underline;">测试</em></p>
+      <table class="layui-table">
+        <thead>
+          <tr>
+            <th style="width: 100px;">名称</th>
+            <th style="width: 100px;">类型</th>
+            <th style="width: 100px;">是否必传</th>
+            <th>描述</th>
+          </tr> 
+        </thead>
+        <tbody>
+          <tr>
+            <td>key</td>
+            <td>varchar</td>
+            <td>是</td>
+            <td>无限期免费，暂时无用传</td>
+          </tr>
+          <tr>
+            <td>name</td>
+            <td>varchar</td>
+            <td>是</td>
+            <td>姓名,utf-8编码</td>
+          </tr>
+          <tr>
+            <td>groupId</td>
+            <td>varchar</td>
+            <td>否</td>
+            <td>组名，是哪一组的编号</td>
+          </tr>
+          <tr>
+            <td>file</td>
+            <td>file</td>
+            <td>是</td>
+            <td>图片流</td>
+          </tr>
+          <tr>
+        </tr></tbody>
+      </table>
+      <p>返回示例</p>
+      <pre class="layui-code layui-box layui-code-view"><h3 class="layui-code-h3">JSON</h3><ol class="layui-code-ol"><li>{	</li><li>  "data":"085ba5ec70ce4d71a5b8d2494843d17f",(组ID,如果下张图片跟其一组可传改值)	</li><li>  "message": "人脸注册成功",	</li><li>  "result": 1	</li><li>}	</li><li>      </li></ol></pre>
+      <pre class="layui-code layui-box layui-code-view"><h3 class="layui-code-h3">JSON</h3><ol class="layui-code-ol"><li>{	</li><li>  "data":null,	</li><li>  "message": "缺少图片或服务器升级",	</li><li>  "result": 0	</li><li>}	</li><li>      </li></ol></pre>
+    </div>
+    
+    <div class="site-title">
+      <fieldset><legend><a name="extract_api">人脸对比API</a></legend></fieldset>
+    </div>   
+    <div class="site-text">
+      <p>HTTP协议，支持POST请求，UTF-8编码<em id="test_face_compare" style="color: blue; text-decoration: underline;">测试</em></p>
+      <table class="layui-table">
+        <thead>
+          <tr>
+            <th style="width: 100px;">名称</th>
+            <th style="width: 100px;">类型</th>
+            <th style="width: 100px;">是否必传</th>
+            <th>描述</th>
+          </tr> 
+        </thead>
+        <tbody>
+          <tr>
+            <td>key</td>
+            <td>varchar</td>
+            <td>是</td>
+            <td>无限期免费，暂时无用传</td>
+          </tr>
+          <tr>
+            <td>groupId</td>
+            <td>varchar</td>
+            <td>是</td>
+            <td>组名，是哪一组的编号</td>
+          </tr>
+          <tr>
+            <td>file</td>
+            <td>file</td>
+            <td>是</td>
+            <td>图片流</td>
+          </tr>
+          <tr>
+        </tr></tbody>
+      </table>
+      <p>返回示例</p>
+      <pre class="layui-code layui-box layui-code-view"><h3 class="layui-code-h3">JSON</h3><ol class="layui-code-ol"><li>{	</li><li>  "data":{	</li><li>    "faceId": "wo8u229m9q",</li><li>    "name": "张珍珍",</li><li>    "similarValue": 100,(人脸相似度)</li><li>    "age": 29,</li><li>    "gender": "男"</li><li>  },	</li><li>  "message": "比对成功",	</li><li>  "status": 1	</li><li>}	</li><li>      </li></ol></pre>
+      <pre class="layui-code layui-box layui-code-view"><h3 class="layui-code-h3">JSON</h3><ol class="layui-code-ol"><li>{	</li><li>  "data":null,	</li><li>  "message": "无匹配图片或服务器升级",	</li><li>  "result": 0	</li><li>}	</li><li>      </li></ol></pre>
+    </div>
 	
 </div>
 <script type="text/javascript">
@@ -130,6 +217,13 @@
 		  layer.msg('请上传注册图片', {icon: 5});
 		  return false;
     });
+	
+	$("#test_face_reg").click(function(){
+		layer.msg("先联系作者开通权限，基础说明中有联系方式", {icon: 5});
+	});
+	$("#test_face_compare").click(function(){
+		layer.msg("先联系作者开通权限，基础说明中有联系方式", {icon: 5});
+	});
 	
 /*]]>*/	
 </script>
