@@ -15,9 +15,9 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -82,10 +82,6 @@ public class UserManagerController {
 		ModelAndView view = new ModelAndView();
 		Users user = userService.getUser(userName);
 		List<RolesUser> roles=roleService.getRolesByUser(user.getUserId());
-		String areaName = areaService.getAreaNameByAreaCode(user.getAreaCode());
-		String policeName = policeService.getPoliceNamebyPoliceCode(user.getPolice());
-		view.addObject("areaName",areaName);
-		view.addObject("policeName",policeName);
 		view.addObject("user", user);
 		view.addObject("roles", roles);		
 		view.setViewName("user/updateuser");

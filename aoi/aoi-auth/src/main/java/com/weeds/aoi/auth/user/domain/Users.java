@@ -53,31 +53,23 @@ public class Users {
 
     /**
      * <pre>
-     * 警号
-     * 表字段 : users.POLICE_CODE
+     * 国家地区
+     * 表字段 : users.nationality_code
      * </pre>
      */
-    private String policeCode;
+    private String nationalityCode;
     
     /**
-     * 区域编号
-     * 表字段:users.AREA_CODE
+     * 省份
+     * 表字段:users.province
      */
-    private String areaCode;
+    private String province;
+    
     /**
-	 * areaCode.
-	 * @return  the areaCode
-	 */
-	public String getAreaCode() {
-		return areaCode;
-	}
-
-	/**
-	 * @param   areaCode  the areaCode to set
-	 */
-	public void setAreaCode(String areaCode) {
-		this.areaCode = areaCode;
-	}
+     * 区县
+     * 表字段:users.city
+     */
+    private String city;
 
 	/**
      * <pre>
@@ -86,14 +78,6 @@ public class Users {
      * </pre>
      */
     private String idcard;
-
-    /**
-     * <pre>
-     * 派出所编码
-     * 表字段 : users.POLICE
-     * </pre>
-     */
-    private String police;
 
     /**
      * <pre>
@@ -134,7 +118,7 @@ public class Users {
      * </pre>
      */
     private Integer loginTotal;
-
+    
     /**
      * <pre>
      * 用户类型1：管理账号 2：普通用户
@@ -142,6 +126,22 @@ public class Users {
      * </pre>
      */
     private Integer userType;
+    
+    /**
+     * <pre>
+     * 行业类型编号
+     * 表字段 : users.trade_type
+     * </pre>
+     */
+    private Integer tradeType;
+
+    /**
+     * <pre>
+     * 会员类型 1个人 2企业 默认1
+     * 表字段 : users.member_type
+     * </pre>
+     */
+    private Integer memberType;
 
     /**
      * <pre>
@@ -150,7 +150,7 @@ public class Users {
      * </pre>
      */
     private Integer status;
-
+    
     /**
      * <pre>
      * 创建者
@@ -158,6 +158,14 @@ public class Users {
      * </pre>
      */
     private String creator;
+
+    /**
+     * <pre>
+     * 主营业务
+     * 表字段 : users.business
+     * </pre>
+     */
+    private String business;
 
     /**
      * <pre>
@@ -311,31 +319,6 @@ public class Users {
 
     /**
      * <pre>
-     * 获取：警号
-     * 表字段：users.POLICE_CODE
-     * </pre>
-     *
-     * @return users.POLICE_CODE：警号
-     */
-    public String getPoliceCode() {
-        return policeCode;
-    }
-
-    /**
-     * <pre>
-     * 设置：警号
-     * 表字段：users.POLICE_CODE
-     * </pre>
-     *
-     * @param policeCode
-     *            users.POLICE_CODE：警号
-     */
-    public void setPoliceCode(String policeCode) {
-        this.policeCode = policeCode;
-    }
-
-    /**
-     * <pre>
      * 获取：证件号码
      * 表字段：users.IDCARD
      * </pre>
@@ -357,31 +340,6 @@ public class Users {
      */
     public void setIdcard(String idcard) {
         this.idcard = idcard;
-    }
-
-    /**
-     * <pre>
-     * 获取：派出所编码
-     * 表字段：users.POLICE
-     * </pre>
-     *
-     * @return users.POLICE：派出所编码
-     */
-    public String getPolice() {
-        return police;
-    }
-
-    /**
-     * <pre>
-     * 设置：派出所编码
-     * 表字段：users.POLICE
-     * </pre>
-     *
-     * @param police
-     *            users.POLICE：派出所编码
-     */
-    public void setPolice(String police) {
-        this.police = police;
     }
 
     /**
@@ -583,4 +541,52 @@ public class Users {
     public void setCreator(String creator) {
         this.creator = creator;
     }
+
+	public String getNationalityCode() {
+		return nationalityCode;
+	}
+
+	public void setNationalityCode(String nationalityCode) {
+		this.nationalityCode = nationalityCode;
+	}
+
+	public String getProvince() {
+		return province;
+	}
+
+	public void setProvince(String province) {
+		this.province = province;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public Integer getTradeType() {
+		return tradeType;
+	}
+
+	public void setTradeType(Integer tradeType) {
+		this.tradeType = tradeType;
+	}
+
+	public Integer getMemberType() {
+		return memberType;
+	}
+
+	public void setMemberType(Integer memberType) {
+		this.memberType = memberType;
+	}
+
+	public String getBusiness() {
+		return business;
+	}
+
+	public void setBusiness(String business) {
+		this.business = business;
+	}
 }

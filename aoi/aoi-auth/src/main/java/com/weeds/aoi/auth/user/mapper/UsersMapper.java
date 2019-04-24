@@ -19,154 +19,139 @@ public interface UsersMapper {
 	
     @Delete({
         "delete from users",
-        "where USER_ID = #{userId,jdbcType=INTEGER}"
+        "where USER_ID = #{userId}"
     })
     int deleteByPrimaryKey(Integer userId);
 
     @Insert({
-        "insert into users (USER_NAME, ",
-        "USER_PWD, PHONE, ",
-        "EMAIL, NAME, POLICE_CODE, AREA_CODE,",
-        "IDCARD, POLICE, ",
-        "ACTION, ",
-        "UPDATE_TIME, STATUS, CREATOR)",
+        "insert into users (USER_NAME,USER_PWD, PHONE,EMAIL, NAME, nationality_code, province,city,IDCARD, ACTION, ",
+        "UPDATE_TIME, STATUS, CREATOR,trade_type,business,member_type)",
         "values "
-        + "(#{userName,jdbcType=VARCHAR}, ",
-        "#{userPwd,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, ",
-        "#{email,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{policeCode,jdbcType=VARCHAR}, #{areaCode,jdbcType=VARCHAR},",
-        "#{idcard,jdbcType=VARCHAR}, #{police,jdbcType=VARCHAR}, ",
-        "#{action,jdbcType=VARCHAR}, ",
-        "#{updateTime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}, #{creator,jdbcType=VARCHAR})"
+        + "(#{userName},#{userPwd}, #{phone},#{email}, #{name}, #{nationalityCode}, #{province},#{city},#{idcard}, #{action}, ",
+        "#{updateTime}, #{status}, #{creator},#{tradeType},#{business},#{memberType})"
     })
-    @SelectKey(statement="select USER_ID from users where USER_NAME = #{userName,jdbcType=VARCHAR}", keyProperty="userId", before=false, resultType=int.class)
+    @SelectKey(statement="select USER_ID from users where USER_NAME = #{userName}", keyProperty="userId", before=false, resultType=int.class)
     int insert(Users record);
     
-    /*@Insert({"<script>",
-    	"insert into users (USER_ID, USER_NAME, ",
-        "USER_PWD, PHONE, ",
-        "EMAIL, NAME, POLICE_CODE, ",
-        "IDCARD, POLICE, ",
-        "ACTION, CREATE_TIME, ",
-        "UPDATE_TIME, LOGIN_LAST, ",
-        "LOGIN_TOTAL)",
-        "values",
-        "<foreach collection='userlist' item='user'  separator=','>",
-        "(#{user.userId,jdbcType=INTEGER}, #{user.userName,jdbcType=VARCHAR}, ",
-        "#{user.userPwd,jdbcType=VARCHAR}, #{user.phone,jdbcType=VARCHAR}, ",
-        "#{user.email,jdbcType=VARCHAR}, #{user.name,jdbcType=VARCHAR}, #{user.policeCode,jdbcType=VARCHAR}, ",
-        "#{user.idcard,jdbcType=VARCHAR}, #{user.police,jdbcType=VARCHAR}, ",
-        "#{user.action,jdbcType=VARCHAR}, #{user.createTime,jdbcType=TIMESTAMP}, ",
-        "#{user.updateTime,jdbcType=TIMESTAMP}, #{user.loginLast,jdbcType=TIMESTAMP}, ",
-        "#{user.loginTotal,jdbcType=INTEGER})",
-        "</foreach>",
-        "</script>"})
-    int batchInsert(@Param("userlist") List<Users> userlist);*/
-      
     @Select({
         "select",
-        "USER_ID, USER_NAME, USER_PWD, PHONE, EMAIL, NAME, POLICE_CODE, AREA_CODE, IDCARD, POLICE, ",
-        "ACTION, CREATE_TIME, UPDATE_TIME, LOGIN_LAST, LOGIN_TOTAL, STATUS, CREATOR",
+        "USER_ID,CREATE_TIME, UPDATE_TIME, USER_NAME, USER_PWD, PHONE, EMAIL, NAME,IDCARD,nationality_code,province,city,",
+        "ACTION,LOGIN_LAST, LOGIN_TOTAL, USER_TYPE,STATUS, CREATOR,trade_type,business,member_type ",
         "from users",
-        "where USER_ID = #{userId,jdbcType=INTEGER}"
+        "where USER_ID = #{userId}"
     })
     @Results({
         @Result(column="USER_ID", property="userId", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="CREATE_TIME", property="createTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="UPDATE_TIME", property="updateTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="USER_NAME", property="userName", jdbcType=JdbcType.VARCHAR),
         @Result(column="USER_PWD", property="userPwd", jdbcType=JdbcType.VARCHAR),
         @Result(column="PHONE", property="phone", jdbcType=JdbcType.VARCHAR),
         @Result(column="EMAIL", property="email", jdbcType=JdbcType.VARCHAR),
         @Result(column="NAME", property="name", jdbcType=JdbcType.VARCHAR),
-        @Result(column="POLICE_CODE", property="policeCode", jdbcType=JdbcType.VARCHAR),
-        @Result(column="AREA_CODE", property="areaCode", jdbcType=JdbcType.VARCHAR),
         @Result(column="IDCARD", property="idcard", jdbcType=JdbcType.VARCHAR),
-        @Result(column="POLICE", property="police", jdbcType=JdbcType.VARCHAR),
+        @Result(column="nationality_code", property="nationalityCode", jdbcType=JdbcType.VARCHAR),
+        @Result(column="province", property="province", jdbcType=JdbcType.VARCHAR),
+        @Result(column="city", property="city", jdbcType=JdbcType.VARCHAR),
         @Result(column="ACTION", property="action", jdbcType=JdbcType.VARCHAR),
-        @Result(column="CREATE_TIME", property="createTime", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="UPDATE_TIME", property="updateTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="LOGIN_LAST", property="loginLast", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="LOGIN_TOTAL", property="loginTotal", jdbcType=JdbcType.INTEGER),
+        @Result(column="USER_TYPE", property="userType", jdbcType=JdbcType.INTEGER),
         @Result(column="STATUS", property="status", jdbcType=JdbcType.INTEGER),
-        @Result(column="CREATOR", property="creator", jdbcType=JdbcType.VARCHAR)
+        @Result(column="CREATOR", property="creator", jdbcType=JdbcType.VARCHAR),
+        @Result(column="trade_type", property="tradeType", jdbcType=JdbcType.INTEGER),
+        @Result(column="business", property="business", jdbcType=JdbcType.VARCHAR),
+        @Result(column="member_type", property="memberType", jdbcType=JdbcType.INTEGER)
     })
     Users selectByPrimaryKey(Integer userId);
     
     @Select({
         "select",
-        "USER_ID, USER_NAME, USER_PWD, PHONE, EMAIL, NAME, POLICE_CODE, AREA_CODE, IDCARD, POLICE, ",
-        "ACTION, CREATE_TIME, UPDATE_TIME, LOGIN_LAST, LOGIN_TOTAL, USER_TYPE, STATUS, CREATOR",
+        "USER_ID,CREATE_TIME, UPDATE_TIME, USER_NAME, USER_PWD, PHONE, EMAIL, NAME,IDCARD,nationality_code,province,city,",
+        "ACTION,LOGIN_LAST, LOGIN_TOTAL, USER_TYPE,STATUS, CREATOR,trade_type,business,member_type ",
         "from users",
-        "where USER_NAME = #{userName,jdbcType=VARCHAR}"
+        "where USER_NAME = #{userName}"
     })
     @Results({
-        @Result(column="USER_ID", property="userId", jdbcType=JdbcType.INTEGER, id=true),
+    	@Result(column="USER_ID", property="userId", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="CREATE_TIME", property="createTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="UPDATE_TIME", property="updateTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="USER_NAME", property="userName", jdbcType=JdbcType.VARCHAR),
         @Result(column="USER_PWD", property="userPwd", jdbcType=JdbcType.VARCHAR),
         @Result(column="PHONE", property="phone", jdbcType=JdbcType.VARCHAR),
         @Result(column="EMAIL", property="email", jdbcType=JdbcType.VARCHAR),
         @Result(column="NAME", property="name", jdbcType=JdbcType.VARCHAR),
-        @Result(column="POLICE_CODE", property="policeCode", jdbcType=JdbcType.VARCHAR),
-        @Result(column="AREA_CODE", property="areaCode", jdbcType=JdbcType.VARCHAR),
         @Result(column="IDCARD", property="idcard", jdbcType=JdbcType.VARCHAR),
-        @Result(column="POLICE", property="police", jdbcType=JdbcType.VARCHAR),
+        @Result(column="nationality_code", property="nationalityCode", jdbcType=JdbcType.VARCHAR),
+        @Result(column="province", property="province", jdbcType=JdbcType.VARCHAR),
+        @Result(column="city", property="city", jdbcType=JdbcType.VARCHAR),
         @Result(column="ACTION", property="action", jdbcType=JdbcType.VARCHAR),
-        @Result(column="CREATE_TIME", property="createTime", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="UPDATE_TIME", property="updateTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="LOGIN_LAST", property="loginLast", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="LOGIN_TOTAL", property="loginTotal", jdbcType=JdbcType.INTEGER),
         @Result(column="USER_TYPE", property="userType", jdbcType=JdbcType.INTEGER),
         @Result(column="STATUS", property="status", jdbcType=JdbcType.INTEGER),
-        @Result(column="CREATOR", property="creator", jdbcType=JdbcType.VARCHAR)
+        @Result(column="CREATOR", property="creator", jdbcType=JdbcType.VARCHAR),
+        @Result(column="trade_type", property="tradeType", jdbcType=JdbcType.INTEGER),
+        @Result(column="business", property="business", jdbcType=JdbcType.VARCHAR),
+        @Result(column="member_type", property="memberType", jdbcType=JdbcType.INTEGER)
     })
     Users selectByUserName(String userName);
 
     @Select({
         "select",
-        "USER_ID, USER_NAME, USER_PWD, PHONE, EMAIL, NAME, POLICE_CODE, AREA_CODE, IDCARD, POLICE, ",
-        "ACTION, CREATE_TIME, UPDATE_TIME, LOGIN_LAST, LOGIN_TOTAL, USER_TYPE",
+        "USER_ID,CREATE_TIME, UPDATE_TIME, USER_NAME, USER_PWD, PHONE, EMAIL, NAME,IDCARD,nationality_code,province,city,",
+        "ACTION,LOGIN_LAST, LOGIN_TOTAL, USER_TYPE,STATUS, CREATOR,trade_type,business,member_type ",
         "from users where USER_TYPE != 1"
     })
     @Results({
-        @Result(column="USER_ID", property="userId", jdbcType=JdbcType.INTEGER, id=true),
+    	@Result(column="USER_ID", property="userId", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="CREATE_TIME", property="createTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="UPDATE_TIME", property="updateTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="USER_NAME", property="userName", jdbcType=JdbcType.VARCHAR),
         @Result(column="USER_PWD", property="userPwd", jdbcType=JdbcType.VARCHAR),
         @Result(column="PHONE", property="phone", jdbcType=JdbcType.VARCHAR),
         @Result(column="EMAIL", property="email", jdbcType=JdbcType.VARCHAR),
         @Result(column="NAME", property="name", jdbcType=JdbcType.VARCHAR),
-        @Result(column="POLICE_CODE", property="policeCode", jdbcType=JdbcType.VARCHAR),
-        @Result(column="AREA_CODE", property="areaCode", jdbcType=JdbcType.VARCHAR),
         @Result(column="IDCARD", property="idcard", jdbcType=JdbcType.VARCHAR),
-        @Result(column="POLICE", property="police", jdbcType=JdbcType.VARCHAR),
+        @Result(column="nationality_code", property="nationalityCode", jdbcType=JdbcType.VARCHAR),
+        @Result(column="province", property="province", jdbcType=JdbcType.VARCHAR),
+        @Result(column="city", property="city", jdbcType=JdbcType.VARCHAR),
         @Result(column="ACTION", property="action", jdbcType=JdbcType.VARCHAR),
-        @Result(column="CREATE_TIME", property="createTime", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="UPDATE_TIME", property="updateTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="LOGIN_LAST", property="loginLast", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="LOGIN_TOTAL", property="loginTotal", jdbcType=JdbcType.INTEGER),
-        @Result(column="USER_TYPE", property="userType", jdbcType=JdbcType.INTEGER)
+        @Result(column="USER_TYPE", property="userType", jdbcType=JdbcType.INTEGER),
+        @Result(column="STATUS", property="status", jdbcType=JdbcType.INTEGER),
+        @Result(column="CREATOR", property="creator", jdbcType=JdbcType.VARCHAR),
+        @Result(column="trade_type", property="tradeType", jdbcType=JdbcType.INTEGER),
+        @Result(column="business", property="business", jdbcType=JdbcType.VARCHAR),
+        @Result(column="member_type", property="memberType", jdbcType=JdbcType.INTEGER)
     })
     List<Users> selectAll();
 
     @Update({
         "update users",
-        "set PHONE = #{phone,jdbcType=VARCHAR},",
-          "EMAIL = #{email,jdbcType=VARCHAR},",
-          "NAME = #{name,jdbcType=VARCHAR},",
-          "USER_PWD = #{userPwd,jdbcType=VARCHAR},",
-          "POLICE_CODE = #{policeCode,jdbcType=VARCHAR},",
-          "AREA_CODE = #{areaCode,jdbcType=VARCHAR},",
-          "IDCARD = #{idcard,jdbcType=VARCHAR},",
-          "POLICE = #{police,jdbcType=VARCHAR},",
-          "ACTION = #{action,jdbcType=VARCHAR},",
-          "UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},",
-          "STATUS = #{status,jdbcType=INTEGER}",
-        "where USER_ID = #{userId,jdbcType=INTEGER}"
+        "set PHONE = #{phone},",
+          "EMAIL = #{email},",
+          "NAME = #{name},",
+          "USER_PWD = #{userPwd},",
+          "nationality_code = #{nationalityCode},",
+          "province = #{province},",
+          "city = #{city},",
+          "IDCARD = #{idcard},",
+          "ACTION = #{action},",
+          "UPDATE_TIME = #{updateTime},",
+          "member_type = #{memberType},",
+          "business = #{business},",
+          "trade_type = #{tradeType} ",
+        "where USER_ID = #{userId}"
     })
     int updateByPrimaryKey(Users record);
     
     @Update({
         "update users",
-        "set LOGIN_TOTAL = #{loginTotal,jdbcType=INTEGER},",
-          "LOGIN_LAST = #{loginLast,jdbcType=TIMESTAMP}",
-        "where USER_ID = #{userId,jdbcType=INTEGER}"
+        "set LOGIN_TOTAL = #{loginTotal},",
+          "LOGIN_LAST = #{loginLast}",
+        "where USER_ID = #{userId}"
     })
     int updateUserLastByPrimaryKey(Users record);
     

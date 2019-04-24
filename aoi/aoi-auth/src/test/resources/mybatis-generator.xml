@@ -16,12 +16,8 @@
 		<jdbcConnection connectionURL="${jdbc.url}"
 			driverClass="${jdbc.driverClassName}" password="${jdbc.password}"
 			userId="${jdbc.username}" />
-		<javaModelGenerator targetPackage="com.weeds.aoi.auth.bi.domain"
+		<javaModelGenerator targetPackage="com.weeds.aoi.auth.user.domain"
 			targetProject="src/main/java" />
-		<sqlMapGenerator targetPackage="com.weeds.aoi.auth.bi.mapper"
-			targetProject="src/main/java" />
-		<javaClientGenerator targetPackage="com.weeds.aoi.auth.bi.mapper"
-			targetProject="src/main/java" type="XMLMAPPER" />
 		
 		<table schema="srdb" tableName="t_access_token" enableDeleteByExample="false"
 			enableUpdateByExample="false">

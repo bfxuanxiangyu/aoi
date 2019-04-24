@@ -75,31 +75,9 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="col-lg-3 control-label">警员编号</label>
-						<div class="col-lg-5">
-							<input type="text" class="form-control" name="user.policeCode" />
-						</div>
-					</div>
-					<div class="form-group">
 						<label class="col-lg-3 control-label">身份证号</label>
 						<div class="col-lg-5">
 							<input type="text" class="form-control" name="user.idcard" />
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-lg-3 control-label">区域编号</label>
-						<div class="col-lg-5 input-group" style="padding-right: 15px;padding-left:15px;">
-							<input type="text" id="areaName" class="form-control" name="user.areaName" th:value="上海"  placeholder="请选择" aria-describedby="basic-addon2" readonly="readonly"/>
-							<input type="hidden" id="areaCode" name="user.areaCode" th:value="310100"/>
-							 <span class="input-group-addon" id="basic-addon2" onclick="areaCode()" data-toggle="modal" data-target="#selectArea" style="cursor: pointer;">+</span>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-lg-3 control-label">派出所编号</label>
-						<div class="input-group col-lg-5" style="padding-right: 15px;padding-left:15px;">
-							<input type="text" id="policeName" class="form-control" name="user.policeName"  placeholder="请选择" aria-describedby="basic-addon2" readonly="readonly"/>
-							<input type="hidden" id="police" class="form-control" name="user.police"/>
-							<span class="input-group-addon" id="basic-addon2" onclick="policeCode()" data-toggle="modal" data-target="#selectPolice" style="cursor: pointer;">+</span>
 						</div>
 					</div>
 						<div class="form-group">
@@ -151,112 +129,7 @@
 		<!-- :form -->
 	</div>
 </div>
-<div class="modal fade" id="selectArea" tabindex="-1" role="dialog"
-      aria-labelledby="editRoleMenuModalLabel" aria-hidden="true" data-backdrop="false">
-     <div class="modal-dialog">
-         <div class="modal-content">
-             <div class="modal-header">
-                 <h4 class="modal-title" id="editRoleMenuModalLabel">区域展示</h4>
-             </div>
-             <div class="modal-body">
-             	<ul id="areaZtree" class="ztree"></ul>
-             </div>
-             <div class="modal-footer">
-                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                 <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="areain();">确认</button>
-             </div>
-         </div><!-- /.modal-content -->
-     </div><!-- /.modal -->
- </div>
-<div class="modal fade" id="selectPolice" tabindex="-1" role="dialog"
-      aria-labelledby="editRoleMenuModalLabel" aria-hidden="true" data-backdrop="false">
-     <div class="modal-dialog">
-         <div class="modal-content">
-             <div class="modal-header">
-                 <h4 class="modal-title" id="editRoleMenuModalLabel">请选择派出所</h4>
-             </div>
-             <div class="modal-body">
-             	<ul id="policeZtree" class="ztree" style="height:300px;overflow:auto; "></ul>
-             </div>
-             <div class="modal-footer">
-                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                 <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="pilcein();">确认</button>
-             </div>
-         </div><!-- /.modal-content -->
-     </div><!-- /.modal -->
- </div>
 
-<script type="text/javascript">
-var areasetting = {
-		check: {
-			enable: true,
-			chkStyle: "radio",
-			radioType: "all"
-		},
-		data: {
-			simpleData: {
-				enable: true,
-				idKey: "id",
-				pIdKey: "pId",
-				rootPId: "310100"
-			}
-		}
-	};
-function areaCode(){
-	$.ajax({
-		 data: {
-	        	},
-		dataType:"json",
-		url:"/admin/area/gettree",
-		success: function(data){
-			
-			$.fn.zTree.init($('#areaZtree'), areasetting, data);
-		}
-	})		
-}
-function areain(){
-	var treeObj = $.fn.zTree.getZTreeObj("areaZtree");
-	var nodes = treeObj.getCheckedNodes();
-	$("#areaName").attr("value",nodes[0].name)
-	$("#areaCode").attr("value",nodes[0].code)
-	$("#police").attr("value","")
-	$("#policeName").attr("value","")
-}
-var policesetting = {
-		check: {
-			enable: true,
-			chkStyle: "radio",
-			radioType: "all"
-		},
-		data: {
-			simpleData: {
-				enable: true,
-				idKey: "id",
-				pIdKey: "pId",
-				
-			}
-		}
-	};
-function policeCode(){
-	$.ajax({
-		 data: {
-	        	"areaCode": $("#areaCode").val()
-	        	},
-		dataType:"json",
-		url:"/admin/police/gettree",
-		success: function(data){
-			$.fn.zTree.init($('#policeZtree'), policesetting, data);
-		}
-	})		
-}
-function pilcein(){
-	var treeObj = $.fn.zTree.getZTreeObj("policeZtree");
-	var nodes = treeObj.getCheckedNodes();
-	$("#policeName").attr("value",nodes[0].name)
-	$("#police").attr("value",nodes[0].code)
-}
-</script>
-                                
 <script type="text/javascript">
 $(document).ready(function() {
 	$("#editModal").on("hide.bs.modal", function(){$(this).removeData("bs.modal");});

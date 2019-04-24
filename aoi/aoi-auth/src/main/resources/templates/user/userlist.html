@@ -24,7 +24,6 @@
                     <tr>
                         <th>用户名</th>
                         <th>姓名</th>
-                        <th>警员编号</th>
                         <th>注册时间</th>
                         <th>最后登录时间</th>
                         <th>使用次数</th>
@@ -35,7 +34,6 @@
                     <tr class="odd gradeX" th:each="user:${userList}">
                         <td th:text="${user.userName}"></td>
                         <td th:text="${user.name}"></td>
-                        <td th:text="${user.policeCode}"></td>
                         <td th:text="${user.createTime == null ? '' : #dates.format(user.createTime, 'yyyy/MM/dd HH:mm')}"></td>
                         <td th:text="${user.loginLast == null ? '' : #dates.format(user.loginLast, 'yyyy/MM/dd HH:mm')}"></td>
                         <td th:text="${user.loginTotal}"></td>
